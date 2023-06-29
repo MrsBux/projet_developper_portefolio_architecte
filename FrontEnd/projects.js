@@ -7,6 +7,28 @@ const portfolioTitle = document.createElement("h2");
 portfolioTitle.innerText = "Mes projets";
 sectionProjects.appendChild(portfolioTitle);
 
+const filters = document.querySelector(".filters");
+
+const buttonFilterTous = document.createElement("button");
+buttonFilterTous.innerText = "Tous";
+buttonFilterTous.classList.add("filters");
+sectionProjects.appendChild(buttonFilterTous);
+
+const buttonFilterObjects = document.createElement("button");
+buttonFilterObjects.innerText = "Objets";
+buttonFilterObjects.classList.add("filters");
+sectionProjects.appendChild(buttonFilterObjects);
+
+const buttonFilterAppart = document.createElement("button");
+buttonFilterAppart.innerText = "Appartements";
+buttonFilterAppart.classList.add("filters");
+sectionProjects.appendChild(buttonFilterAppart);
+
+const buttonFilterHotel = document.createElement("button");
+buttonFilterHotel.innerText = "Hôtels & restaurants";
+buttonFilterHotel.classList.add("filters");
+sectionProjects.appendChild(buttonFilterHotel);
+
 function generateProjects(projects) {
   const gallery = document.querySelector(".gallery");
 

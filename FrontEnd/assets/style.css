@@ -195,6 +195,19 @@ li:hover {
 #introduction p {
   margin-bottom: 0.5em;
 }
+
+.filters {
+  padding: 1%;
+  color: #1d6154;
+  border: #1d6154 1px solid;
+  border-radius: 90%;
+  background-color: white;
+}
+
+.filters:hover {
+  font-weight: 800;
+}
+
 #portfolio h2 {
   text-align: center;
   margin-bottom: 1em;
