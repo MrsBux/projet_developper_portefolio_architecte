@@ -6,17 +6,6 @@ const projects = await reponse.json();
 
 const reponse2 = await fetch("http://localhost:5678/api/categories");
 const categories = await reponse2.json();
-const categoriesT = [categories];
-
-console.log(categories);
-
-// const monSetCategoriesNames = new Set();
-
-// for (let i = 0; i < categories.length; i++) {
-//   // monSetCategories.add(categories[i].id);
-//   monSetCategoriesNames.add(categories[i].name);
-// }
-// console.log(monSetCategoriesNames);
 
 //création d'une constante section portfolio rattachée à la section portefolio du code HTML
 
@@ -52,13 +41,25 @@ function generateProjects(projects) {
     titleElement.innerText = project.title;
 
     sectionGallery.appendChild(projectElement);
-
     projectElement.appendChild(imageElement);
     projectElement.appendChild(titleElement);
   }
 }
 
 generateProjects(projects);
+
+const buttonFilterAll = document.createElement("button");
+buttonFilterAll.innerText = "Tous";
+buttonFilterAll.classList.add("filters");
+buttonFilters.appendChild(buttonFilterAll);
+buttonFilterAll.addEventListener("click", function () {
+  const piecesFiltres = projects.filter(function (project) {
+    return project;
+  });
+  console.log(piecesFiltres);
+  document.querySelector(".gallery").innerHTML = "";
+  generateProjects(piecesFiltres);
+});
 
 const categorySet = new Set(categories.map((category) => category.name));
 
