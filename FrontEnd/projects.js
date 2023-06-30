@@ -1,50 +1,71 @@
+//Importation des données works depuis l'API et stockage dans reponse (puis stockage en format json dans projects)
 const reponse = await fetch("http://localhost:5678/api/works");
 const projects = await reponse.json();
 
-const sectionProjects = document.querySelector(".portfolio");
+//Importation des données category depuis l'API et stockage dans reponse2 (puis stockage en format json dans categories)
+
+const reponse2 = await fetch("http://localhost:5678/api/categories");
+const categories = await reponse2.json();
+
+//création d'une constante section portfolio rattachée à la section portefolio du code HTML
+
+const sectionPortfolio = document.querySelector(".portfolio");
+
+// création du titre Mes projets et rattachement à section portfolio
 
 const portfolioTitle = document.createElement("h2");
 portfolioTitle.innerText = "Mes projets";
-sectionProjects.appendChild(portfolioTitle);
+sectionPortfolio.appendChild(portfolioTitle);
 
-const filters = document.querySelector(".filters");
+// créations boutons de filtres
 
-const buttonFilterTous = document.createElement("button");
-buttonFilterTous.innerText = "Tous";
-buttonFilterTous.classList.add("filters");
-sectionProjects.appendChild(buttonFilterTous);
+const buttonFilters = document.createElement("div");
+buttonFilters.classList.add("buttonFilters");
 
-const buttonFilterObjects = document.createElement("button");
-buttonFilterObjects.innerText = "Objets";
-buttonFilterObjects.classList.add("filters");
-sectionProjects.appendChild(buttonFilterObjects);
+sectionPortfolio.appendChild(buttonFilters);
+
+const buttonFilterAll = document.createElement("button");
+buttonFilterAll.innerText = "Tous";
+buttonFilterAll.classList.add("filters");
+buttonFilters.appendChild(buttonFilterAll);
+
+const buttonFilterObject = document.createElement("button");
+buttonFilterObject.innerText = "Objets";
+buttonFilterObject.classList.add("filters");
+buttonFilters.appendChild(buttonFilterObject);
 
 const buttonFilterAppart = document.createElement("button");
 buttonFilterAppart.innerText = "Appartements";
 buttonFilterAppart.classList.add("filters");
-sectionProjects.appendChild(buttonFilterAppart);
+buttonFilters.appendChild(buttonFilterAppart);
 
 const buttonFilterHotel = document.createElement("button");
 buttonFilterHotel.innerText = "Hôtels & restaurants";
 buttonFilterHotel.classList.add("filters");
-sectionProjects.appendChild(buttonFilterHotel);
+buttonFilters.appendChild(buttonFilterHotel);
+
+const sectionGallery = document.querySelector(".gallery");
+sectionPortfolio.appendChild(sectionGallery);
 
 function generateProjects(projects) {
-  const gallery = document.querySelector(".gallery");
-
   for (let i = 0; i < projects.length; i++) {
     const project = projects[i];
 
     const projectElement = document.createElement("figure");
 
+    const idElement = document.createElement("p");
+    idElement.innerText = project.id;
+
+    const idCategory = document.createElement("p");
+    idCategory.innerText = project.categoryId;
+
     const imageElement = document.createElement("img");
     imageElement.src = project.imageUrl;
-    imageElement.classList.add("gallery-image");
 
     const titleElement = document.createElement("p");
     titleElement.innerText = project.title;
 
-    gallery.appendChild(projectElement);
+    sectionGallery.appendChild(projectElement);
 
     projectElement.appendChild(imageElement);
     projectElement.appendChild(titleElement);
@@ -53,23 +74,40 @@ function generateProjects(projects) {
 
 generateProjects(projects);
 
-// for (let i = 0; i < projects.length; i++) {
-//   const project = projects[i];
+// Evenements de trie
 
-//   const titleElement = document.createElement("p");
-//   titleElement.innerText = project.title;
+buttonFilterAll.addEventListener("click", function () {
+  const piecesFiltres = projects.filter(function (project) {
+    return project;
+  });
+  console.log(piecesFiltres);
+  document.querySelector(".gallery").innerHTML = "";
+  generateProjects(piecesFiltres);
+});
 
-//   const idElement = document.createElement("p");
-//   idElement.innerText = project.id;
+buttonFilterObject.addEventListener("click", function () {
+  const piecesFiltres = projects.filter(function (project) {
+    return project.categoryId === 1;
+  });
+  console.log(piecesFiltres);
+  document.querySelector(".gallery").innerHTML = "";
+  generateProjects(piecesFiltres);
+});
 
-//   const categoryId = document.createElement("p");
-//   categoryId.innerText = project.categoryId;
+buttonFilterAppart.addEventListener("click", function () {
+  const piecesFiltres = projects.filter(function (project) {
+    return project.categoryId === 2;
+  });
+  console.log(piecesFiltres);
+  document.querySelector(".gallery").innerHTML = "";
+  generateProjects(piecesFiltres);
+});
 
-//   const userId = document.createElement("p");
-//   userId.innerText = project.userId;
-
-//   const category = document.createElement("p");
-//   userId.innerText = project.category;
-
-//   console.log(category);
-// }
+buttonFilterHotel.addEventListener("click", function () {
+  const piecesFiltres = projects.filter(function (project) {
+    return project.categoryId === 3;
+  });
+  console.log(piecesFiltres);
+  document.querySelector(".gallery").innerHTML = "";
+  generateProjects(piecesFiltres);
+});

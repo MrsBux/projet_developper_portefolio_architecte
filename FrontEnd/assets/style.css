@@ -14,6 +14,9 @@ p,
 blockquote,
 pre,
 a,
+img,
+figure,
+figcaption,
 abbr,
 acronym,
 address,
@@ -196,11 +199,21 @@ li:hover {
   margin-bottom: 0.5em;
 }
 
+.buttonFilters {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+  margin: 10px;
+}
+
 .filters {
+  font-family: "Syne";
   padding: 1%;
   color: #1d6154;
   border: #1d6154 1px solid;
-  border-radius: 90%;
+  border-radius: 60px;
   background-color: white;
 }
 
@@ -212,16 +225,16 @@ li:hover {
   text-align: center;
   margin-bottom: 1em;
 }
+
+.gallery img {
+  width: 366px;
+}
 .gallery {
+  max-width: 100%;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-column-gap: 20px;
   grid-row-gap: 20px;
-}
-
-.gallery-image {
-  width: 100%;
-  height: auto;
 }
 
 #contact {
