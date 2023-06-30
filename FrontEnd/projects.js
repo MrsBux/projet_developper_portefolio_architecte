@@ -6,43 +6,29 @@ const projects = await reponse.json();
 
 const reponse2 = await fetch("http://localhost:5678/api/categories");
 const categories = await reponse2.json();
+const categoriesT = [categories];
+
+console.log(categories);
+
+// const monSetCategoriesNames = new Set();
+
+// for (let i = 0; i < categories.length; i++) {
+//   // monSetCategories.add(categories[i].id);
+//   monSetCategoriesNames.add(categories[i].name);
+// }
+// console.log(monSetCategoriesNames);
 
 //création d'une constante section portfolio rattachée à la section portefolio du code HTML
 
 const sectionPortfolio = document.querySelector(".portfolio");
 
-// création du titre Mes projets et rattachement à section portfolio
-
 const portfolioTitle = document.createElement("h2");
 portfolioTitle.innerText = "Mes projets";
 sectionPortfolio.appendChild(portfolioTitle);
 
-// créations boutons de filtres
-
 const buttonFilters = document.createElement("div");
 buttonFilters.classList.add("buttonFilters");
-
 sectionPortfolio.appendChild(buttonFilters);
-
-const buttonFilterAll = document.createElement("button");
-buttonFilterAll.innerText = "Tous";
-buttonFilterAll.classList.add("filters");
-buttonFilters.appendChild(buttonFilterAll);
-
-const buttonFilterObject = document.createElement("button");
-buttonFilterObject.innerText = "Objets";
-buttonFilterObject.classList.add("filters");
-buttonFilters.appendChild(buttonFilterObject);
-
-const buttonFilterAppart = document.createElement("button");
-buttonFilterAppart.innerText = "Appartements";
-buttonFilterAppart.classList.add("filters");
-buttonFilters.appendChild(buttonFilterAppart);
-
-const buttonFilterHotel = document.createElement("button");
-buttonFilterHotel.innerText = "Hôtels & restaurants";
-buttonFilterHotel.classList.add("filters");
-buttonFilters.appendChild(buttonFilterHotel);
 
 const sectionGallery = document.querySelector(".gallery");
 sectionPortfolio.appendChild(sectionGallery);
@@ -74,40 +60,23 @@ function generateProjects(projects) {
 
 generateProjects(projects);
 
-// Evenements de trie
+const categorySet = new Set(categories.map((category) => category.name));
 
-buttonFilterAll.addEventListener("click", function () {
-  const piecesFiltres = projects.filter(function (project) {
-    return project;
-  });
-  console.log(piecesFiltres);
-  document.querySelector(".gallery").innerHTML = "";
-  generateProjects(piecesFiltres);
-});
+categorySet.forEach((categoryName) => {
+  const buttonFilter = document.createElement("button");
+  buttonFilter.innerText = categoryName;
+  buttonFilter.classList.add("filters");
+  buttonFilters.appendChild(buttonFilter);
 
-buttonFilterObject.addEventListener("click", function () {
-  const piecesFiltres = projects.filter(function (project) {
-    return project.categoryId === 1;
+  buttonFilter.addEventListener("click", function () {
+    const piecesFiltres = projects.filter(function (project) {
+      return (
+        project.categoryId ===
+        categories.find((category) => category.name === categoryName).id
+      );
+    });
+    console.log(piecesFiltres);
+    sectionGallery.innerHTML = "";
+    generateProjects(piecesFiltres);
   });
-  console.log(piecesFiltres);
-  document.querySelector(".gallery").innerHTML = "";
-  generateProjects(piecesFiltres);
-});
-
-buttonFilterAppart.addEventListener("click", function () {
-  const piecesFiltres = projects.filter(function (project) {
-    return project.categoryId === 2;
-  });
-  console.log(piecesFiltres);
-  document.querySelector(".gallery").innerHTML = "";
-  generateProjects(piecesFiltres);
-});
-
-buttonFilterHotel.addEventListener("click", function () {
-  const piecesFiltres = projects.filter(function (project) {
-    return project.categoryId === 3;
-  });
-  console.log(piecesFiltres);
-  document.querySelector(".gallery").innerHTML = "";
-  generateProjects(piecesFiltres);
 });
