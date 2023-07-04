@@ -55,30 +55,35 @@ errorLogIn.innerText = "Mauvaise combinaison";
 
 buttonConnexion.addEventListener("click", async function () {
   const jeuMdpPassword = {
-    email: "sophie.bluel@test.tld",
-    password: "S0phie",
+    email: email.value,
+    password: password.value,
   };
   console.log(jeuMdpPassword);
   const responsemdp = await fetch("http://localhost:5678/api/users/login", {
     method: "POST",
     body: JSON.stringify(jeuMdpPassword),
+    headers: {
+      "Content-Type": "application/json",
+    },
   });
   console.log(responsemdp);
+
+  // const token =
+
+  if (responsemdp.status === 200) {
+    console.log("Bien joué");
+
+    window.localStorage.setItem(
+      "token",
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTY1MTg3NDkzOSwiZXhwIjoxNjUxOTYxMzM5fQ.JGN1p8YIfR-M-5eQ-Ypy6Ima5cKA4VbfL2xMr2MgHm4"
+    );
+    setTimeout(function () {
+      window.location.href = "index.html";
+    }, 1000);
+  } else {
+    alert("Mauvaise combinaison Email / Mot de passe");
+  }
 });
 
-//   array.forEach(inputEmail, inputMdt => {
-
-//   }); {
-
-//
-// const responsemdp = await fetch("http://localhost:5678/api/users/login");
-// // const responseMDT = await responsemdp.json();
-// console.log(responsemdp);
-// if (responsemdp.status === 200) {
-//   console.log("Bien joué");
-// } else {
-//   // return "Mauvaise combinaison";
-//   console.log("Mauvaise combinaison");
-// }
-
+//////////////////////////////////////////////////////////////////
 // (localStorage.set/get/remove/Item()) méthode location.reload()
