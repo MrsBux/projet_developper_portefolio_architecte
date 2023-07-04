@@ -84,6 +84,3 @@ buttonConnexion.addEventListener("click", async function () {
     alert("Mauvaise combinaison Email / Mot de passe");
   }
 });
-
-//////////////////////////////////////////////////////////////////
-// (localStorage.set/get/remove/Item()) méthode location.reload()

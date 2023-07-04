@@ -99,3 +99,54 @@ categorySet.forEach((categoryName) => {
     generateProjects(piecesFiltres);
   });
 });
+
+const tokenRegistred = window.localStorage.getItem("token");
+
+const changeIntro = document.querySelector(".change-intro");
+changeIntro.setAttribute(
+  "style",
+  "display : flex; flex-direction: row, justify-content: space-around;"
+);
+changeIntro.style.setProperty("flex-direction", "row");
+
+const header = document.querySelector("header");
+
+if (
+  tokenRegistred ==
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTY1MTg3NDkzOSwiZXhwIjoxNjUxOTYxMzM5fQ.JGN1p8YIfR-M-5eQ-Ypy6Ima5cKA4VbfL2xMr2MgHm4"
+) {
+  // barre noire dans le header + logo + texte mode edition + button publier les changements
+
+  const barreEditHeader = document.createElement("div");
+  header.appendChild(barreEditHeader);
+  barreEditHeader.setAttribute(
+    "style",
+    "order:1; display: flex; flex-direction: row; width: 1440px; height: 59px; background-color: black; margin: 0px 0px 0px 0px 0px;"
+  );
+
+  //login devient logout
+
+  // logo zone intro
+  const modifIntro = document.createElement("p");
+  modifIntro.innerText = "Modifier";
+  changeIntro.appendChild(modifIntro);
+
+  const iconIntro = document.createElement("i");
+  iconIntro.innerText = " fa-regular fa-pen-to-square";
+  changeIntro.appendChild(iconIntro);
+
+  // logo + text zone 2
+
+  buttonFilterAll.style.setProperty("display", "none");
+  buttonFilters.style.setProperty("display", "none");
+
+  const modifGallery = document.createElement("p");
+  modifGallery.innerText = "Modifier";
+  sectionGallery.appendChild(modifGallery);
+
+  const iconGallery = document.createElement("i");
+  iconGallery.innerText = " fa-regular fa-pen-to-square";
+  sectionGallery.appendChild(iconGallery);
+} else {
+  // le site se comporte normalement
+}
