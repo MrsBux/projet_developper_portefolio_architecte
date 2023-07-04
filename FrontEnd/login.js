@@ -1,6 +1,9 @@
 // page de connexion
+// selection de la zone div de formulaire
 
 const sectionLogIn = document.querySelector(".logIn");
+
+// création du formulaire
 
 const formulaire = document.createElement("form");
 formulaire.innerText = "";
@@ -13,6 +16,8 @@ formulaire.appendChild(organisationForm);
 const legend = document.createElement("legend");
 legend.innerText = "Log In";
 organisationForm.appendChild(legend);
+
+// zone input email et mot de passe
 
 const labelEmail = document.createElement("label");
 labelEmail.innerText = "E-mail";
@@ -30,24 +35,37 @@ const password = document.createElement("input");
 password.innerText = "Mot de passe";
 organisationForm.appendChild(password);
 
+// Bouton se connecter
+
 const buttonConnexion = document.createElement("submit");
 buttonConnexion.classList.add("connexion");
 buttonConnexion.innerText = "Se connecter";
 organisationForm.appendChild(buttonConnexion);
 
+// lien mot de passe oublié
+
 const mdpOublie = document.createElement("a");
 mdpOublie.innerText = "Mot de passe oublié";
 sectionLogIn.appendChild(mdpOublie);
+
+// Mise en fonction du formulaire --------------------------------------------------------
 
 const errorLogIn = document.createElement("p");
 errorLogIn.innerText = "Mauvaise combinaison";
 
 buttonConnexion.addEventListener("click", async function () {
-  const jeuMdpPassword = [email.value, password.value];
+  const jeuMdpPassword = {
+    email: "sophie.bluel@test.tld",
+    password: "S0phie",
+  };
   console.log(jeuMdpPassword);
-  const responsemdp = await fetch("http://localhost:5678/api/users/login");
+  const responsemdp = await fetch("http://localhost:5678/api/users/login", {
+    method: "POST",
+    body: JSON.stringify(jeuMdpPassword),
+  });
   console.log(responsemdp);
 });
+
 //   array.forEach(inputEmail, inputMdt => {
 
 //   }); {
@@ -63,4 +81,4 @@ buttonConnexion.addEventListener("click", async function () {
 //   console.log("Mauvaise combinaison");
 // }
 
-// (localStorage.clear()) et d'utiliser la méthode location.reload()
+// (localStorage.set/get/remove/Item()) méthode location.reload()

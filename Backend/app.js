@@ -24,4 +24,11 @@ app.use('/api/users', userRoutes);
 app.use('/api/categories', categoriesRoutes);
 app.use('/api/works', worksRoutes);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs))
+app.use((req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  next();
+});
+
 module.exports = app;
