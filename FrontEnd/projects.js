@@ -7,6 +7,11 @@ const projects = await reponse.json();
 const reponse2 = await fetch("http://localhost:5678/api/categories");
 const categories = await reponse2.json();
 
+// import Fontion font awesome pour les icons
+
+// import { ajoutFontawesome } from "./scripts/main";
+// ajoutFontawesome();
+
 // Sélection de l'élément HTML avec la classe "portfolio" et stockage dans la variable 'sectionPortfolio'
 
 const sectionPortfolio = document.querySelector(".portfolio");
@@ -121,32 +126,70 @@ if (
   header.appendChild(barreEditHeader);
   barreEditHeader.setAttribute(
     "style",
-    "order:1; display: flex; flex-direction: row; width: 1440px; height: 59px; background-color: black; margin: 0px 0px 0px 0px 0px;"
+    "order:1; display: flex; flex-direction: row; justify-content: center; align-items:center; gap:15px; width :100% ; height: 59px; background-color: black; margin: 0px;"
   );
+
+  const modifHeader = document.createElement("button");
+  modifHeader.innerText = "Modifier";
+  modifHeader.setAttribute(
+    "style",
+    "color : white; margin: 0px; font-family: Work Sans; border:none; background-color: black;"
+  );
+  barreEditHeader.appendChild(modifHeader);
+
+  const iconHeader = document.createElement("i");
+  iconHeader.classList.add("fa-regular");
+  iconHeader.classList.add("fa-pen-to-square");
+  iconHeader.innerText = ".";
+  barreEditHeader.appendChild(iconHeader);
+
+  const buttonPublication = document.createElement("button");
+  buttonPublication.innerText = "publier les changements";
+  buttonPublication.setAttribute(
+    "style",
+    "display: flex; justify-content :center; align-items:center; width :216px; font-family: Work Sans; border:none; font-size: 14px; font-weight: 800; height: 30px; background-color: ; margin: 0px; border-radius: 60px; color: black;"
+  );
+  barreEditHeader.appendChild(buttonPublication);
 
   //login devient logout
 
-  // logo zone intro
-  const modifIntro = document.createElement("p");
+  const lienLogin = document.querySelector(".lien_login");
+  lienLogin.style.setProperty("display", "none");
+
+  const lienLogout = document.querySelector(".lien_logout");
+  lienLogout.style.setProperty("display", "flex");
+
+  // Modifier la zone intro (logo + texte)
+  const modifIntro = document.createElement("button");
   modifIntro.innerText = "Modifier";
+  modifIntro.setAttribute(
+    "style",
+    "display: flex; color: black; margin: 0px; font-family: Work Sans; border:none; background-color: white;"
+  );
   changeIntro.appendChild(modifIntro);
 
   const iconIntro = document.createElement("i");
   iconIntro.innerText = " fa-regular fa-pen-to-square";
   changeIntro.appendChild(iconIntro);
 
-  // logo + text zone 2
+  // Modifier la zone 2 (logo + texte)
 
-  buttonFilterAll.style.setProperty("display", "none");
-  buttonFilters.style.setProperty("display", "none");
-
-  const modifGallery = document.createElement("p");
+  const modifGallery = document.createElement("button");
   modifGallery.innerText = "Modifier";
+  modifGallery.setAttribute(
+    "style",
+    "display: flex; color: black; margin: 0px; font-family: Work Sans; border:none; background-color: white;"
+  );
   sectionGallery.appendChild(modifGallery);
 
   const iconGallery = document.createElement("i");
-  iconGallery.innerText = " fa-regular fa-pen-to-square";
+  iconGallery.innerText = "fa-regular fa-pen-to-square";
   sectionGallery.appendChild(iconGallery);
+
+  //Supprimer les filtres
+
+  buttonFilterAll.style.setProperty("display", "none");
+  buttonFilters.style.setProperty("display", "none");
 } else {
   // le site se comporte normalement
 }
