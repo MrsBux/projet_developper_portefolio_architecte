@@ -203,14 +203,76 @@ if (
   );
   portfolioTitleChange.appendChild(modifGallery);
 
-  // ------------------------------------------------------------------------Ajout modale
-
-  // --------------------------------------------------------------------------------
-
   //Supprimer les filtres
 
   buttonFilterAll.style.setProperty("display", "none");
   buttonFilters.style.setProperty("display", "none");
+  let modal = null;
+
+  const aModal1 = document.createElement("a");
+  aModal1.href = "#modal1";
+  aModal1.classList.add("js-modal");
+  modifGallery.appendChild(aModal1);
+
+  const modal1 = document.createElement("aside");
+  modal1.classList.add("modal1");
+  modal1.role = "dialog";
+  modal1.style.display = "none";
+  sectionGallery.appendChild(modal1);
+
+  const modalWrapper = document.createElement("div");
+  modalWrapper.classList.add("modalWrapper");
+  modalWrapper.innerText = "bkabka";
+  modal1.appendChild(modalWrapper);
+
+  function openModal(e) {
+    const target = modal1;
+    target.style.display = null;
+    target.setAttribute("aria-modal", "true");
+    // modal = target;
+    // modal.addEventListener("click", closeModal);
+    // modal
+    //   .querySelector(".js-modal-close")
+    //   .addEventListener("click", closeModal);
+  }
+
+  aModal1.addEventListener("click", openModal);
 } else {
   // le site se comporte normalement
 }
+
+// ------------------------------------------------------------------------Ajout modale
+
+// {
+//   /* <h3 id="titlemodal2">Ajout photo</h3>
+// <div> cadre ajout photo
+// <icon></icon>
+// <button></button>
+// <p></p>
+// </div>
+// <form action="">
+// <fieldset></fieldset>
+// </form>
+// <button> valider</button>
+// </div> */
+// }
+
+// const closeModal = function (e) {
+//   if (modal === null) return;
+//   e.preventDefault();
+//   modal.style.display = "none";
+//   modal.setAttribute("aria-hidden", "true");
+//   modal.removeAttribute("aria-modal");
+//   modal = target;
+//   modal.removeEventListener("click", closeModal);
+//   modal
+//     .querySelector(".js-modal-close")
+//     .removeEventListener("click", closeModal);
+//   modal = null;
+// };
+
+// --------------------------------------------------------------------------------
+
+// document.querySelectorAll(".js-modal").forEach((a) => {
+//   a.addEventListener("click", openModal);
+// // });

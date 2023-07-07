@@ -289,6 +289,29 @@ button:hover {
   grid-row-gap: 20px;
 }
 
+/* modale*/
+
+.modal1 {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  height: 100%;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.3);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.modalWrapper {
+  width: 630px;
+  max-width: calc(100vw - 20px);
+  max-height: calc(100vh - 20px);
+  overflow: auto;
+  background-color: white;
+  padding: 50px;
+}
+
 #contact {
   width: 50%;
   margin: auto;
