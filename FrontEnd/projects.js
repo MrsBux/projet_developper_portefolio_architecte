@@ -12,15 +12,28 @@ const categories = await reponse2.json();
 // import { ajoutFontawesome } from "./scripts/main";
 // ajoutFontawesome();
 
+//sélection du header
+
+const header = document.querySelector("header");
+
 // Sélection de l'élément HTML avec la classe "portfolio" et stockage dans la variable 'sectionPortfolio'
 
 const sectionPortfolio = document.querySelector(".portfolio");
+
+// création zone div pour titre + button modifier login
+
+const portfolioTitleChange = document.createElement("div");
+sectionPortfolio.appendChild(portfolioTitleChange);
+portfolioTitleChange.setAttribute(
+  "style",
+  "display: flex; flex-direction: row; justify-content : center; align-items : center; gap: 20px;"
+);
 
 // Création d'un élément <h2> pour le titre "Mes projets" et ajout à 'sectionPortfolio'
 
 const portfolioTitle = document.createElement("h2");
 portfolioTitle.innerText = "Mes projets";
-sectionPortfolio.appendChild(portfolioTitle);
+portfolioTitleChange.appendChild(portfolioTitle);
 
 // Création d'un conteneur pour les boutons de filtre et ajout à 'sectionPortfolio'
 
@@ -105,16 +118,13 @@ categorySet.forEach((categoryName) => {
   });
 });
 
+//créatin d'une variable token
+
 const tokenRegistred = window.localStorage.getItem("token");
 
-const changeIntro = document.querySelector(".change-intro");
-changeIntro.setAttribute(
-  "style",
-  "display : flex; flex-direction: row, justify-content: space-around;"
-);
-changeIntro.style.setProperty("flex-direction", "row");
+// Modification du format de la section 1
 
-const header = document.querySelector("header");
+// Boucle login / log out
 
 if (
   tokenRegistred ==
@@ -160,6 +170,13 @@ if (
   lienLogout.style.setProperty("display", "flex");
 
   // Modifier la zone intro (logo + texte)
+
+  const changeIntro = document.querySelector(".change-intro");
+  changeIntro.setAttribute(
+    "style",
+    "width: 100%; display: flex; flex-direction: row; justify-content: flex-start; margin-top: 30px;"
+  );
+
   const modifIntro = document.createElement("button");
   modifIntro.innerText = "Modifier";
   modifIntro.setAttribute(
@@ -174,17 +191,21 @@ if (
 
   // Modifier la zone 2 (logo + texte)
 
+  const iconGallery = document.createElement("i");
+  iconGallery.innerText = "fa-regular fa-pen-to-square";
+  portfolioTitleChange.appendChild(iconGallery);
+
   const modifGallery = document.createElement("button");
   modifGallery.innerText = "Modifier";
   modifGallery.setAttribute(
     "style",
     "display: flex; color: black; margin: 0px; font-family: Work Sans; border:none; background-color: white;"
   );
-  sectionGallery.appendChild(modifGallery);
+  portfolioTitleChange.appendChild(modifGallery);
 
-  const iconGallery = document.createElement("i");
-  iconGallery.innerText = "fa-regular fa-pen-to-square";
-  sectionGallery.appendChild(iconGallery);
+  // ------------------------------------------------------------------------Ajout modale
+
+  // --------------------------------------------------------------------------------
 
   //Supprimer les filtres
 
