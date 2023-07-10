@@ -200,6 +200,10 @@ if (
   modal1.style.display = "none";
   sectionGallery.appendChild(modal1);
 
+  modal1.addEventListener("click", async function () {
+    modal1.style.display = "none";
+  });
+
   const modifGallery = document.createElement("button");
   modifGallery.innerText = "Modifier";
   modifGallery.setAttribute(
@@ -280,6 +284,11 @@ if (
   );
   modalWrapper.appendChild(buttonAjoutPhoto);
 
+  buttonAjoutPhoto.addEventListener("click", async function () {
+    modal1.style.display = "none";
+    modal2.style.display = null;
+  });
+
   const lienSuppression = document.createElement("a");
   lienSuppression.innerText = "Supprimer la galerie";
   lienSuppression.setAttribute(
@@ -293,8 +302,12 @@ if (
   const modal2 = document.createElement("aside");
   modal2.classList.add("modal2");
   modal2.role = "dialog";
-  modal2.style.display = null;
+  modal2.style.display = "none";
   sectionGallery.appendChild(modal2);
+
+  modal2.addEventListener("click", async function () {
+    modal2.style.display = "none";
+  });
 
   const modalWrapper2 = document.createElement("div");
   modalWrapper2.classList.add("modalWrapper");
@@ -393,22 +406,6 @@ if (
   // le site se comporte normalement
 }
 
-// ------------------------------------------------------------------------Ajout modale
-
-// {
-//   /* <h3 id="titlemodal2">Ajout photo</h3>
-// <div> cadre ajout photo
-// <icon></icon>
-// <button></button>
-// <p></p>
-// </div>
-// <form action="">
-// <fieldset></fieldset>
-// </form>
-// <button> valider</button>
-// </div> */
-// }
-
 // const closeModal = function (e) {
 //   if (modal === null) return;
 //   e.preventDefault();
@@ -422,9 +419,3 @@ if (
 //     .removeEventListener("click", closeModal);
 //   modal = null;
 // };
-
-// --------------------------------------------------------------------------------
-
-// document.querySelectorAll(".js-modal").forEach((a) => {
-//   a.addEventListener("click", openModal);
-// // });
