@@ -217,13 +217,79 @@ if (
   const modal1 = document.createElement("aside");
   modal1.classList.add("modal1");
   modal1.role = "dialog";
-  modal1.style.display = "none";
+  // modal1.style.display = "none";
   sectionGallery.appendChild(modal1);
 
   const modalWrapper = document.createElement("div");
   modalWrapper.classList.add("modalWrapper");
-  modalWrapper.innerText = "bkabka";
+  modalWrapper.setAttribute(
+    "style",
+    "display: flex; flex-direction: column; justify:content:center; align-items: center; gap: 40px; color: black; padding: 20px; border:none; background-color: white;"
+  );
   modal1.appendChild(modalWrapper);
+
+  const titleModal = document.createElement("h3");
+  titleModal.innerText = "Galerie photo";
+  titleModal.setAttribute(
+    "style",
+    "margin: auto; font-family: Work Sans; font-size: 26px; padding-top: 50px; padding-bottom: 20px;"
+  );
+  modalWrapper.appendChild(titleModal);
+
+  const galleryModal = document.createElement("div");
+  galleryModal.setAttribute(
+    "style",
+    "display: grid; grid-template-columns: 78px 78px 78px 78px 78px; gap: 15px; margin: auto; border-bottom: green 1px solid; padding: 20px;"
+  );
+  modalWrapper.appendChild(galleryModal);
+
+  function generateProjectsModal(projects) {
+    for (let i = 0; i < projects.length; i++) {
+      const project = projects[i];
+
+      const projectElementModal = document.createElement("figure");
+      projectElementModal.setAttribute(
+        "style",
+        "max-width: 100%; display: flex; flex-direction: column"
+      );
+
+      const imageElementModal = document.createElement("img");
+      imageElementModal.src = project.imageUrl;
+      imageElementModal.setAttribute(
+        "style",
+        " box-sizing: border-box; width : 78px  ;"
+      );
+
+      const figureCaptionElement = document.createElement("figurecaption");
+      figureCaptionElement.innerText = "";
+
+      const lienEdit = document.createElement("a");
+      lienEdit.innerText = "Editer";
+
+      galleryModal.appendChild(projectElementModal);
+      projectElementModal.appendChild(imageElementModal);
+      projectElementModal.appendChild(figureCaptionElement);
+      figureCaptionElement.appendChild(lienEdit);
+    }
+  }
+
+  generateProjectsModal(projects);
+
+  const buttonAjoutPhoto = document.createElement("button");
+  buttonAjoutPhoto.innerText = "Ajouter une photo";
+  buttonAjoutPhoto.setAttribute(
+    "style",
+    "font-family: Syne; font-weight: 700; font-size:14px; width: 237px; height: 36px; text-align:center; background-color: #1d6154 ; color: white; border-radius:60px; border:none;"
+  );
+  modalWrapper.appendChild(buttonAjoutPhoto);
+
+  const lienSuppression = document.createElement("a");
+  lienSuppression.innerText = "Supprimer la galerie";
+  lienSuppression.setAttribute(
+    "style",
+    "font-size:14px; width: 237px; height: 36px; text-align:center; color: #D65353;"
+  );
+  modalWrapper.appendChild(lienSuppression);
 
   function openModal(e) {
     const target = modal1;
