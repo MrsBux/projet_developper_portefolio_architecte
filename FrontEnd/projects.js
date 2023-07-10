@@ -8,7 +8,6 @@ const reponse2 = await fetch("http://localhost:5678/api/categories");
 const categories = await reponse2.json();
 
 // import Fontion font awesome pour les icons
-
 // import { ajoutFontawesome } from "./scripts/main";
 // ajoutFontawesome();
 
@@ -195,36 +194,34 @@ if (
   iconGallery.innerText = "fa-regular fa-pen-to-square";
   portfolioTitleChange.appendChild(iconGallery);
 
+  const modal1 = document.createElement("aside");
+  modal1.classList.add("modal1");
+  modal1.role = "dialog";
+  modal1.style.display = "none";
+  sectionGallery.appendChild(modal1);
+
   const modifGallery = document.createElement("button");
   modifGallery.innerText = "Modifier";
   modifGallery.setAttribute(
     "style",
     "display: flex; color: black; margin: 0px; font-family: Work Sans; border:none; background-color: white;"
   );
+  modifGallery.addEventListener("click", async function () {
+    modal1.style.display = null;
+  });
+
   portfolioTitleChange.appendChild(modifGallery);
 
   //Supprimer les filtres
 
   buttonFilterAll.style.setProperty("display", "none");
   buttonFilters.style.setProperty("display", "none");
-  let modal = null;
-
-  const aModal1 = document.createElement("a");
-  aModal1.href = "#modal1";
-  aModal1.classList.add("js-modal");
-  modifGallery.appendChild(aModal1);
-
-  const modal1 = document.createElement("aside");
-  modal1.classList.add("modal1");
-  modal1.role = "dialog";
-  // modal1.style.display = "none";
-  sectionGallery.appendChild(modal1);
 
   const modalWrapper = document.createElement("div");
   modalWrapper.classList.add("modalWrapper");
   modalWrapper.setAttribute(
     "style",
-    "display: flex; flex-direction: column; justify:content:center; align-items: center; gap: 40px; color: black; padding: 20px; border:none; background-color: white;"
+    "display: flex; flex-direction: column; align-items: center; gap: 40px; color: black; padding: 20px; border:none; background-color: white;"
   );
   modal1.appendChild(modalWrapper);
 
@@ -291,18 +288,107 @@ if (
   );
   modalWrapper.appendChild(lienSuppression);
 
-  function openModal(e) {
-    const target = modal1;
-    target.style.display = null;
-    target.setAttribute("aria-modal", "true");
-    // modal = target;
-    // modal.addEventListener("click", closeModal);
-    // modal
-    //   .querySelector(".js-modal-close")
-    //   .addEventListener("click", closeModal);
-  }
+  //----------------------------------------------------modal2
 
-  aModal1.addEventListener("click", openModal);
+  const modal2 = document.createElement("aside");
+  modal2.classList.add("modal2");
+  modal2.role = "dialog";
+  modal2.style.display = null;
+  sectionGallery.appendChild(modal2);
+
+  const modalWrapper2 = document.createElement("div");
+  modalWrapper2.classList.add("modalWrapper");
+  modalWrapper2.setAttribute(
+    "style",
+    "display: flex; flex-direction: column; align-items: center; gap: 40px; color: black; padding: 20px; border:none; background-color: white;"
+  );
+  modal2.appendChild(modalWrapper2);
+
+  const titleModal2 = document.createElement("h3");
+  titleModal2.innerText = "Ajout photo";
+  titleModal2.setAttribute(
+    "style",
+    "margin: auto; font-family: Work Sans; font-size: 26px; padding-top: 50px; padding-bottom: 20px;"
+  );
+  modalWrapper2.appendChild(titleModal2);
+
+  const zoneAjoutPhoto = document.createElement("div");
+  zoneAjoutPhoto.setAttribute(
+    "style",
+    "width : 420px; height 169px; display: flex; flex-direction: column; justify:content: center; align-items: center; gap: 10px;  padding: 20px; border: 1px dark-blue solid; background-color: #E8F1F6;"
+  );
+  modalWrapper2.appendChild(zoneAjoutPhoto);
+
+  const iconAjoutPhoto = document.createElement("i");
+  zoneAjoutPhoto.appendChild(iconAjoutPhoto);
+
+  const buttonAjoutPhotoM2 = document.createElement("button");
+  buttonAjoutPhotoM2.innerText = " + Ajouter Photo ";
+  buttonAjoutPhotoM2.setAttribute(
+    "style",
+    "font-family: Work Sans; font-size:14px; width: 237px; height: 36px; text-align:center; background-color: #CBD6DC ; color: #306685; border-radius:60px; border:none;"
+  );
+  zoneAjoutPhoto.appendChild(buttonAjoutPhotoM2);
+
+  const legendFormat = document.createElement("p");
+  legendFormat.innerText = "jpg.png : 4 Mo max";
+  zoneAjoutPhoto.appendChild(legendFormat);
+
+  const formModal2 = document.createElement("form");
+  modalWrapper2.appendChild(formModal2);
+
+  const fieldsetModal2 = document.createElement("fieldset");
+  fieldsetModal2.setAttribute(
+    "style",
+    "display: flex; flex-direction: column; justify:content:center; align-items: center; gap: 40px; color: black; padding: 20px; border:none; background-color: white;"
+  );
+  formModal2.appendChild(fieldsetModal2);
+
+  const titlePhotoModal2 = document.createElement("input");
+  titlePhotoModal2.classList.add("inputModal2");
+  titlePhotoModal2.type = "text";
+  titlePhotoModal2.name = "titre";
+  titlePhotoModal2.id = "titre";
+  fieldsetModal2.appendChild(titlePhotoModal2);
+
+  const titleCategoryTitlePhoto = document.createElement("label");
+  titleCategoryTitlePhoto.for = "titre";
+  titleCategoryTitlePhoto.innerText = "Titre";
+  titlePhotoModal2.appendChild(titleCategoryTitlePhoto);
+
+  const categoryPhotoModal2 = document.createElement("select");
+  categoryPhotoModal2.classList.add("inputModal2");
+  categoryPhotoModal2.name = "Catégorie";
+  categoryPhotoModal2.name = "Catégorie";
+  fieldsetModal2.appendChild(categoryPhotoModal2);
+
+  const category0ptionPhotoModal2 = document.createElement("option");
+  category0ptionPhotoModal2.value = "";
+  category0ptionPhotoModal2.innerText = "";
+  categoryPhotoModal2.appendChild(category0ptionPhotoModal2);
+
+  const categoryObjetsPhotoModal2 = document.createElement("option");
+  categoryObjetsPhotoModal2.value = " Objets";
+  categoryObjetsPhotoModal2.innerText = "Objets";
+  categoryPhotoModal2.appendChild(categoryObjetsPhotoModal2);
+
+  const categoryAppartPhotoModal2 = document.createElement("option");
+  categoryAppartPhotoModal2.value = " Appartements";
+  categoryAppartPhotoModal2.innerText = "Appartements";
+  categoryPhotoModal2.appendChild(categoryAppartPhotoModal2);
+
+  const categoryHotelsPhotoModal2 = document.createElement("option");
+  categoryHotelsPhotoModal2.value = " Hôtels et restaurants";
+  categoryHotelsPhotoModal2.innerText = "Hôtels et restaurants";
+  categoryPhotoModal2.appendChild(categoryHotelsPhotoModal2);
+
+  const buttonValidationModal2 = document.createElement("button");
+  buttonValidationModal2.innerText = "Valider";
+  buttonValidationModal2.setAttribute(
+    "style",
+    "font-family: Syne; font-weight: 700; font-size:14px; width: 237px; height: 36px; text-align:center; background-color: #1d6154 ; color: white; border-radius:60px; border:none;"
+  );
+  modalWrapper2.appendChild(buttonValidationModal2);
 } else {
   // le site se comporte normalement
 }
