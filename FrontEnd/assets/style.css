@@ -295,6 +295,11 @@ button:hover {
 
 /* modale*/
 
+.modal1 img:hover,
+.modal2 img:hover {
+  cursor: pointer;
+}
+
 .modal1 {
   position: fixed;
   top: 0px;
@@ -302,6 +307,7 @@ button:hover {
   height: 100%;
   width: 100%;
   background: rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
   display: flex;
   justify-content: space-around;
   align-items: center;

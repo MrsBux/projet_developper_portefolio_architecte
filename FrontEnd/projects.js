@@ -146,10 +146,8 @@ if (
   );
   barreEditHeader.appendChild(modifHeader);
 
-  const iconHeader = document.createElement("i");
-  iconHeader.classList.add("fa-regular");
-  iconHeader.classList.add("fa-pen-to-square");
-  iconHeader.innerText = ".";
+  const iconHeader = document.createElement("img");
+  iconHeader.src = "svg/Groupbl.svg";
   barreEditHeader.appendChild(iconHeader);
 
   const buttonPublication = document.createElement("button");
@@ -184,14 +182,14 @@ if (
   );
   changeIntro.appendChild(modifIntro);
 
-  const iconIntro = document.createElement("i");
-  iconIntro.innerText = " fa-regular fa-pen-to-square";
+  const iconIntro = document.createElement("img");
+  iconIntro.src = " svg/Group.svg";
   changeIntro.appendChild(iconIntro);
 
   // Modifier la zone 2 (logo + texte)
 
-  const iconGallery = document.createElement("i");
-  iconGallery.innerText = "fa-regular fa-pen-to-square";
+  const iconGallery = document.createElement("img");
+  iconGallery.src = " svg/Group.svg";
   portfolioTitleChange.appendChild(iconGallery);
 
   const modal1 = document.createElement("aside");
@@ -200,9 +198,9 @@ if (
   modal1.style.display = "none";
   sectionGallery.appendChild(modal1);
 
-  modal1.addEventListener("click", async function () {
-    modal1.style.display = "none";
-  });
+  // modal1.addEventListener("click", async function () {
+  //   modal1.style.display = "none";
+  // });
 
   const modifGallery = document.createElement("button");
   modifGallery.innerText = "Modifier";
@@ -229,11 +227,22 @@ if (
   );
   modal1.appendChild(modalWrapper);
 
+  const iconFermetureModal1 = document.createElement("img");
+  iconFermetureModal1.src = "svg/xmark.svg";
+  iconFermetureModal1.setAttribute(
+    "style",
+    "width: 24px; height:24px; position: relative; left : 290px;"
+  );
+  modalWrapper.appendChild(iconFermetureModal1);
+  iconFermetureModal1.addEventListener("click", async function () {
+    modal1.style.display = "none";
+  });
+
   const titleModal = document.createElement("h3");
   titleModal.innerText = "Galerie photo";
   titleModal.setAttribute(
     "style",
-    "margin: auto; font-family: Work Sans; font-size: 26px; padding-top: 50px; padding-bottom: 20px;"
+    "margin: auto; font-family: Work Sans; font-size: 26px; padding-top:10px;"
   );
   modalWrapper.appendChild(titleModal);
 
@@ -260,6 +269,15 @@ if (
         "style",
         " box-sizing: border-box; width : 78px  ;"
       );
+      // );
+
+      const iconSuppression = document.createElement("img");
+      iconSuppression.src = "svg/suppr.svg";
+      projectElementModal.appendChild(iconSuppression);
+      iconSuppression.setAttribute(
+        "style",
+        "width: 17px; height:17px; position: relative; top:25px; left: 55px; z-index:2;"
+      );
 
       const figureCaptionElement = document.createElement("figurecaption");
       figureCaptionElement.innerText = "";
@@ -275,6 +293,14 @@ if (
   }
 
   generateProjectsModal(projects);
+
+  const iconMove = document.createElement("img");
+  iconMove.src = "svg/Move.svg";
+  galleryModal.appendChild(iconMove);
+  iconMove.setAttribute(
+    "style",
+    "width: 17px; height:17px; position: relative; bottom: 279px; right: 60px; z-index:2;"
+  );
 
   const buttonAjoutPhoto = document.createElement("button");
   buttonAjoutPhoto.innerText = "Ajouter une photo";
@@ -305,74 +331,117 @@ if (
   modal2.style.display = "none";
   sectionGallery.appendChild(modal2);
 
-  modal2.addEventListener("click", async function () {
-    modal2.style.display = "none";
-  });
+  // modal2.addEventListener("click", async function () {
+  //   modal2.style.display = "none";
+  // });
 
   const modalWrapper2 = document.createElement("div");
   modalWrapper2.classList.add("modalWrapper");
   modalWrapper2.setAttribute(
     "style",
-    "display: flex; flex-direction: column; align-items: center; gap: 40px; color: black; padding: 20px; border:none; background-color: white;"
+    "display: flex; flex-direction: column; align-items: center; gap: 40px; color: black; padding: 20px; ; background-color: white;"
   );
   modal2.appendChild(modalWrapper2);
+
+  const zoneIconFermetureModale2 = document.createElement("div");
+  zoneIconFermetureModale2.setAttribute(
+    "style",
+    "display: flex; flex-direction: row; gap: 550px;"
+  );
+  modalWrapper2.appendChild(zoneIconFermetureModale2);
+
+  const iconReturnModal2 = document.createElement("img");
+  iconReturnModal2.src = "svg/arrow.svg";
+  iconReturnModal2.setAttribute("style", "width: 21px; height:21px;");
+
+  zoneIconFermetureModale2.appendChild(iconReturnModal2);
+
+  iconReturnModal2.addEventListener("click", async function () {
+    modal1.style.display = null;
+    modal2.style.display = "none";
+  });
+
+  const iconFermetureModal2 = document.createElement("img");
+  iconFermetureModal2.src = "svg/xmark.svg";
+  iconFermetureModal2.setAttribute("style", "width: 24px; height:24px;");
+
+  zoneIconFermetureModale2.appendChild(iconFermetureModal2);
+
+  iconFermetureModal2.addEventListener("click", async function () {
+    modal2.style.display = "none";
+  });
 
   const titleModal2 = document.createElement("h3");
   titleModal2.innerText = "Ajout photo";
   titleModal2.setAttribute(
     "style",
-    "margin: auto; font-family: Work Sans; font-size: 26px; padding-top: 50px; padding-bottom: 20px;"
+    "margin: auto; font-family: Work Sans; font-size: 26px;"
   );
   modalWrapper2.appendChild(titleModal2);
 
   const zoneAjoutPhoto = document.createElement("div");
   zoneAjoutPhoto.setAttribute(
     "style",
-    "width : 420px; height 169px; display: flex; flex-direction: column; justify:content: center; align-items: center; gap: 10px;  padding: 20px; border: 1px dark-blue solid; background-color: #E8F1F6;"
+    "width : 420px; height 169px; display: flex; flex-direction: column; justify:content: center; align-items: center; gap: 15px;  padding: 20px; border: 1px dark-blue solid; background-color: #E8F1F6;"
   );
   modalWrapper2.appendChild(zoneAjoutPhoto);
 
-  const iconAjoutPhoto = document.createElement("i");
+  const iconAjoutPhoto = document.createElement("img");
+  iconAjoutPhoto.src = "svg/picture.svg";
+  iconAjoutPhoto.setAttribute("style", "width: 58px; height:58px;");
+
   zoneAjoutPhoto.appendChild(iconAjoutPhoto);
 
   const buttonAjoutPhotoM2 = document.createElement("button");
   buttonAjoutPhotoM2.innerText = " + Ajouter Photo ";
   buttonAjoutPhotoM2.setAttribute(
     "style",
-    "font-family: Work Sans; font-size:14px; width: 237px; height: 36px; text-align:center; background-color: #CBD6DC ; color: #306685; border-radius:60px; border:none;"
+    "font-family: Work Sans; font-size:14px; width: 173px; height: 36px; text-align:center; background-color: #CBD6DC ; color: #306685; border-radius:60px; border:none;"
   );
   zoneAjoutPhoto.appendChild(buttonAjoutPhotoM2);
 
   const legendFormat = document.createElement("p");
   legendFormat.innerText = "jpg.png : 4 Mo max";
+  legendFormat.setAttribute("style", "font-family: Work Sans; font-size:10px;");
   zoneAjoutPhoto.appendChild(legendFormat);
 
   const formModal2 = document.createElement("form");
+  formModal2.setAttribute("method", "post");
+  formModal2.setAttribute("action", "submit.php");
+  formModal2.setAttribute(
+    "style",
+    "border-bottom: solid 1px grey; padding-bottom : 20px;"
+  );
   modalWrapper2.appendChild(formModal2);
 
   const fieldsetModal2 = document.createElement("fieldset");
   fieldsetModal2.setAttribute(
     "style",
-    "display: flex; flex-direction: column; justify:content:center; align-items: center; gap: 40px; color: black; padding: 20px; border:none; background-color: white;"
+    "display: flex; flex-direction: column; justify:content:flex-start; align-items: flex-start; gap: 40px; color: black; padding: 0px 20px 20px 0px; border:none; background-color: white;"
   );
   formModal2.appendChild(fieldsetModal2);
 
+  const titleTitlePhoto = document.createElement("label");
+  titleTitlePhoto.setAttribute("for", "titre");
+  titleTitlePhoto.innerText = "Titre";
+  fieldsetModal2.appendChild(titleTitlePhoto);
+
   const titlePhotoModal2 = document.createElement("input");
   titlePhotoModal2.classList.add("inputModal2");
-  titlePhotoModal2.type = "text";
-  titlePhotoModal2.name = "titre";
-  titlePhotoModal2.id = "titre";
+  titlePhotoModal2.setAttribute("type", "text");
+  titlePhotoModal2.setAttribute("name", "titre");
+  titlePhotoModal2.setAttribute("id", "titre");
   fieldsetModal2.appendChild(titlePhotoModal2);
 
-  const titleCategoryTitlePhoto = document.createElement("label");
-  titleCategoryTitlePhoto.for = "titre";
-  titleCategoryTitlePhoto.innerText = "Titre";
-  titlePhotoModal2.appendChild(titleCategoryTitlePhoto);
+  const titleCategoryPhoto = document.createElement("label");
+  titleCategoryPhoto.setAttribute("for", "categorie");
+  titleCategoryPhoto.innerText = "Catégorie";
+  fieldsetModal2.appendChild(titleCategoryPhoto);
 
   const categoryPhotoModal2 = document.createElement("select");
   categoryPhotoModal2.classList.add("inputModal2");
-  categoryPhotoModal2.name = "Catégorie";
-  categoryPhotoModal2.name = "Catégorie";
+  categoryPhotoModal2.setAttribute("name", "categorie");
+  categoryPhotoModal2.setAttribute("id", "categorie");
   fieldsetModal2.appendChild(categoryPhotoModal2);
 
   const category0ptionPhotoModal2 = document.createElement("option");
