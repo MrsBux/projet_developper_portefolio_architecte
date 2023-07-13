@@ -403,35 +403,10 @@ if (
   );
   modalWrapper2.appendChild(titleModal2);
 
-  const zoneAjoutPhoto = document.createElement("div");
-  zoneAjoutPhoto.setAttribute(
-    "style",
-    "width : 420px; height 169px; display: flex; flex-direction: column; justify:content: center; align-items: center; gap: 15px;  padding: 20px; border: 1px dark-blue solid; background-color: #E8F1F6;"
-  );
-  modalWrapper2.appendChild(zoneAjoutPhoto);
-
-  const iconAjoutPhoto = document.createElement("img");
-  iconAjoutPhoto.src = "svg/picture.svg";
-  iconAjoutPhoto.setAttribute("style", "width: 58px; height:58px;");
-
-  zoneAjoutPhoto.appendChild(iconAjoutPhoto);
-
-  const buttonAjoutPhotoM2 = document.createElement("button");
-  buttonAjoutPhotoM2.innerText = " + Ajouter Photo ";
-  buttonAjoutPhotoM2.setAttribute(
-    "style",
-    "font-family: Work Sans; font-size:14px; width: 173px; height: 36px; text-align:center; background-color: #CBD6DC ; color: #306685; border-radius:60px; border:none;"
-  );
-  zoneAjoutPhoto.appendChild(buttonAjoutPhotoM2);
-
-  const legendFormat = document.createElement("p");
-  legendFormat.innerText = "jpg.png : 4 Mo max";
-  legendFormat.setAttribute("style", "font-family: Work Sans; font-size:10px;");
-  zoneAjoutPhoto.appendChild(legendFormat);
-
   const formModal2 = document.createElement("form");
   formModal2.setAttribute("method", "post");
   formModal2.setAttribute("action", "submit.php");
+  formModal2.setAttribute("enctype", "multipart/form-data");
   formModal2.setAttribute(
     "style",
     "border-bottom: solid 1px grey; padding-bottom : 20px;"
@@ -444,6 +419,40 @@ if (
     "display: flex; flex-direction: column; justify:content:flex-start; align-items: flex-start; gap: 40px; color: black; padding: 0px 20px 20px 0px; border:none; background-color: white;"
   );
   formModal2.appendChild(fieldsetModal2);
+
+  const zoneAjoutPhoto = document.createElement("div");
+  zoneAjoutPhoto.setAttribute(
+    "style",
+    "width : 420px; height 169px; display: flex; flex-direction: column; justify:content: center; align-items: center; gap: 15px;  padding: 20px; border: 1px dark-blue solid; background-color: #E8F1F6;"
+  );
+  fieldsetModal2.appendChild(zoneAjoutPhoto);
+
+  const iconAjoutPhoto = document.createElement("img");
+  iconAjoutPhoto.src = "svg/picture.svg";
+  iconAjoutPhoto.setAttribute("style", "width: 58px; height:58px;");
+  zoneAjoutPhoto.appendChild(iconAjoutPhoto);
+
+  const labelPhoto = document.createElement("label");
+  labelPhoto.setAttribute("for", "img");
+  labelPhoto.setAttribute(
+    "style",
+    "font-family: Work Sans; font-size:14px; width: 173px; height: 36px; display: flex; justify-content: center; align-items: center; text-align:center; background-color: #CBD6DC ; color: #306685; border-radius:60px; border:none;"
+  );
+  labelPhoto.innerText = "+ Ajouter photo";
+  zoneAjoutPhoto.appendChild(labelPhoto);
+
+  const buttonAjoutPhotoM2 = document.createElement("input");
+  buttonAjoutPhotoM2.setAttribute("type", "file");
+  buttonAjoutPhotoM2.setAttribute("name", "img");
+  buttonAjoutPhotoM2.setAttribute("id", "img");
+  buttonAjoutPhotoM2.setAttribute("required", "true");
+  zoneAjoutPhoto.appendChild(buttonAjoutPhotoM2);
+  buttonAjoutPhotoM2.setAttribute("style", "display:none");
+
+  const legendFormat = document.createElement("p");
+  legendFormat.innerText = "jpg.png : 4 Mo max";
+  legendFormat.setAttribute("style", "font-family: Work Sans; font-size:10px;");
+  zoneAjoutPhoto.appendChild(legendFormat);
 
   const titleTitlePhoto = document.createElement("label");
   titleTitlePhoto.setAttribute("for", "titre");
@@ -495,6 +504,13 @@ if (
     "font-family: Syne; font-weight: 700; font-size:14px; width: 237px; height: 36px; text-align:center; background-color: #1d6154 ; color: white; border-radius:60px; border:none;"
   );
   modalWrapper2.appendChild(buttonValidationModal2);
+  buttonValidationModal2.addEventListener("click", function () {
+    if (titlePhotoModal2 === "" || categoryPhotoModal2 === "") {
+      alert("merci de compléter tous les champs");
+    } else {
+      console.log("Bravo");
+    }
+  });
 } else {
   // le site se comporte normalement
 }
