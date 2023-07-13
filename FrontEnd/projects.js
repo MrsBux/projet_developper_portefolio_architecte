@@ -127,7 +127,7 @@ const tokenRegistred = window.localStorage.getItem("token");
 
 if (
   tokenRegistred ==
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTY1MTg3NDkzOSwiZXhwIjoxNjUxOTYxMzM5fQ.JGN1p8YIfR-M-5eQ-Ypy6Ima5cKA4VbfL2xMr2MgHm4"
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTY4OTIzMzc0OCwiZXhwIjoxNjg5MzIwMTQ4fQ._ZGdaUKcrLbQSnhMvuKBw_BnV6Du9YbVsJvBHLo6ZYo"
 ) {
   // barre noire dans le header + logo + texte mode edition + button publier les changements
 
@@ -271,6 +271,8 @@ if (
       );
       // );
 
+      // icon suppression et add listener supression du projet
+
       const iconSuppression = document.createElement("img");
       iconSuppression.src = "svg/suppr.svg";
       projectElementModal.appendChild(iconSuppression);
@@ -278,6 +280,28 @@ if (
         "style",
         "width: 17px; height:17px; position: relative; top:25px; left: 55px; z-index:2;"
       );
+
+      iconSuppression.addEventListener("click", async (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+
+        const idElementmodal = project.id;
+        console.log(idElementmodal);
+
+        const token = localStorage.getItem("token");
+        console.log(token);
+
+        responseDelete = await fetch(
+          `http://localhost:5678/api/works/${idElementmodal}`,
+          {
+            method: "DELETE",
+            headers: {
+              accept: "*/*",
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+      });
 
       const figureCaptionElement = document.createElement("figurecaption");
       figureCaptionElement.innerText = "";

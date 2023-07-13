@@ -66,7 +66,9 @@ buttonConnexion.addEventListener("click", async function () {
       "Content-Type": "application/json",
     },
   });
-  console.log(responsemdp);
+
+  const responseBody = [responsemdp.body];
+  console.log(responseBody);
 
   // const token =
 
@@ -75,11 +77,11 @@ buttonConnexion.addEventListener("click", async function () {
 
     window.localStorage.setItem(
       "token",
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTY1MTg3NDkzOSwiZXhwIjoxNjUxOTYxMzM5fQ.JGN1p8YIfR-M-5eQ-Ypy6Ima5cKA4VbfL2xMr2MgHm4"
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTY4OTIzMzc0OCwiZXhwIjoxNjg5MzIwMTQ4fQ._ZGdaUKcrLbQSnhMvuKBw_BnV6Du9YbVsJvBHLo6ZYo"
     );
     setTimeout(function () {
       window.location.href = "index.html";
-    }, 1000);
+    }, 100);
   } else {
     alert("Mauvaise combinaison Email / Mot de passe");
   }
