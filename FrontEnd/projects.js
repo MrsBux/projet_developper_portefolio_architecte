@@ -127,7 +127,7 @@ const tokenRegistred = window.localStorage.getItem("token");
 
 if (
   tokenRegistred ==
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTY4OTIzMzc0OCwiZXhwIjoxNjg5MzIwMTQ4fQ._ZGdaUKcrLbQSnhMvuKBw_BnV6Du9YbVsJvBHLo6ZYo"
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTY4OTU5OTA1MSwiZXhwIjoxNjg5Njg1NDUxfQ.d8Q9JnOZL4R0eh5pA7BuGITMpbDTQGRIyvrxhHSC-mI"
 ) {
   // barre noire dans le header + logo + texte mode edition + button publier les changements
 
@@ -211,7 +211,6 @@ if (
   modifGallery.addEventListener("click", async function () {
     modal1.style.display = null;
   });
-
   portfolioTitleChange.appendChild(modifGallery);
 
   //Supprimer les filtres
@@ -267,7 +266,7 @@ if (
       imageElementModal.src = project.imageUrl;
       imageElementModal.setAttribute(
         "style",
-        " box-sizing: border-box; width : 78px  ;"
+        "box-sizing: border-box; width : 78px  ;"
       );
       // );
 
@@ -406,6 +405,7 @@ if (
   const formModal2 = document.createElement("form");
   formModal2.setAttribute("method", "post");
   formModal2.setAttribute("action", "submit.php");
+  formModal2.setAttribute("name", "fileinfo");
   formModal2.setAttribute("enctype", "multipart/form-data");
   formModal2.setAttribute(
     "style",
@@ -432,6 +432,10 @@ if (
   iconAjoutPhoto.setAttribute("style", "width: 58px; height:58px;");
   zoneAjoutPhoto.appendChild(iconAjoutPhoto);
 
+  const imagePreview = document.createElement("img");
+  imagePreview.src = "";
+  zoneAjoutPhoto.appendChild(imagePreview);
+
   const labelPhoto = document.createElement("label");
   labelPhoto.setAttribute("for", "img");
   labelPhoto.setAttribute(
@@ -446,8 +450,23 @@ if (
   buttonAjoutPhotoM2.setAttribute("name", "img");
   buttonAjoutPhotoM2.setAttribute("id", "img");
   buttonAjoutPhotoM2.setAttribute("required", "true");
-  zoneAjoutPhoto.appendChild(buttonAjoutPhotoM2);
   buttonAjoutPhotoM2.setAttribute("style", "display:none");
+  zoneAjoutPhoto.appendChild(buttonAjoutPhotoM2);
+
+  // fonctionnalité de preview de l'image
+
+  buttonAjoutPhotoM2.addEventListener("change", function (event) {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+
+      reader.addEventListener("load", function () {
+        // Mise à jour de la source de l'image avec les données de l'image chargée
+        imagePreview.src = reader.result;
+      });
+      reader.readAsDataURL(file);
+    }
+  });
 
   const legendFormat = document.createElement("p");
   legendFormat.innerText = "jpg.png : 4 Mo max";
@@ -483,17 +502,17 @@ if (
   categoryPhotoModal2.appendChild(category0ptionPhotoModal2);
 
   const categoryObjetsPhotoModal2 = document.createElement("option");
-  categoryObjetsPhotoModal2.value = " Objets";
+  categoryObjetsPhotoModal2.value = "Objets";
   categoryObjetsPhotoModal2.innerText = "Objets";
   categoryPhotoModal2.appendChild(categoryObjetsPhotoModal2);
 
   const categoryAppartPhotoModal2 = document.createElement("option");
-  categoryAppartPhotoModal2.value = " Appartements";
+  categoryAppartPhotoModal2.value = "Appartements";
   categoryAppartPhotoModal2.innerText = "Appartements";
   categoryPhotoModal2.appendChild(categoryAppartPhotoModal2);
 
   const categoryHotelsPhotoModal2 = document.createElement("option");
-  categoryHotelsPhotoModal2.value = " Hôtels et restaurants";
+  categoryHotelsPhotoModal2.value = "Hôtels et restaurants";
   categoryHotelsPhotoModal2.innerText = "Hôtels et restaurants";
   categoryPhotoModal2.appendChild(categoryHotelsPhotoModal2);
 
@@ -501,30 +520,118 @@ if (
   buttonValidationModal2.innerText = "Valider";
   buttonValidationModal2.setAttribute(
     "style",
-    "font-family: Syne; font-weight: 700; font-size:14px; width: 237px; height: 36px; text-align:center; background-color: #1d6154 ; color: white; border-radius:60px; border:none;"
+    "font-family: Syne; font-weight: 700; font-size:14px; width: 237px; height: 36px; text-align:center; background-color: grey ; color: white; border-radius:60px; border:none;"
   );
   modalWrapper2.appendChild(buttonValidationModal2);
-  buttonValidationModal2.addEventListener("click", function () {
-    if (titlePhotoModal2 === "" || categoryPhotoModal2 === "") {
-      alert("merci de compléter tous les champs");
-    } else {
-      console.log("Bravo");
+
+  // fonction ajout d'un nouveau projet
+
+  async function envoyerProjet(formData) {
+    const token = localStorage.getItem("token");
+    const responseEnvoi = await fetch("http://localhost:5678/api/works", {
+      method: "POST",
+      headers: {
+        accept: "*/*",
+        Authorization: `Bearer ${token}`,
+      },
+      body: formData,
+    });
+    console.log(responseEnvoi);
+  }
+
+  buttonValidationModal2.addEventListener("click", async function () {
+    const image = buttonAjoutPhotoM2.files[0];
+    const title = titlePhotoModal2.value;
+    const category = categoryPhotoModal2.value;
+
+    let catId = null;
+
+    if (category === "Objets") {
+      catId = 1;
+    } else if (category === "Appartements") {
+      catId = 2;
+    } else if (category === "Hôtels et restaurants") {
+      catId = 3;
     }
+
+    if (!image || !title || !category) {
+      alert("Merci de compléter tous les champs");
+      return;
+    }
+
+    buttonValidationModal2.setAttribute(
+      "style",
+      "font-family: Syne; font-weight: 700; font-size:14px; width: 237px; height: 36px; text-align:center; background-color: #1D6154;  color: white; border-radius:60px; border:none;"
+    );
+
+    const formData = new FormData();
+    formData.append("image", image);
+    formData.append("title", title);
+    formData.append("category", catId);
+    console.log(formData);
+
+    envoyerProjet(formData);
+    console.log("envoyé");
+    formModal2.reset();
   });
+
+  // const token = localStorage.getItem("token");
+  // console.log(token);
+
+  // async function envoyerProjet(nouveauProjet) {
+  //   try {
+  //     const response = await fetch("http://localhost:5678/api/works", {
+  //       method: "POST",
+  //       headers: {
+  //         accept: "*/*",
+  //         Authorization: `Bearer ${token}`,
+  //       },
+  //       body: nouveauProjet,
+  //     });
+
+  //     if (response.ok) {
+  //       const projetEnregistre = await response.json();
+  //       console.log("Projet enregistré :", projetEnregistre);
+  //     } else {
+  //       console.log(
+  //         "Erreur lors de l'envoi du projet :",
+  //         response.status,
+  //         response.statusText
+  //       );
+  //     }
+  //   } catch (error) {
+  //     console.error("Erreur :", error);
+  //   }
+  // }
+
+  // buttonValidationModal2.addEventListener("click", function () {
+  //   if (
+  //     buttonAjoutPhotoM2.value === "" ||
+  //     titlePhotoModal2.value === "" ||
+  //     categoryPhotoModal2.value === ""
+  //   ) {
+  //     alert("Merci de compléter tous les champs");
+  //   } else {
+  //     buttonValidationModal2.setAttribute(
+  //       "style",
+  //       "font-family: Syne; font-weight: 700; font-size:14px; width: 237px; height: 36px; text-align:center; background-color: #1D6154;  color: white; border-radius:60px; border:none;"
+  //     );
+  //     // création d'un event listener submit du formulaire avec form data
+
+  //     formModal2.addEventListener("submit", async function (event) {
+  //       event.preventDefault();
+  //     });
+
+  //     //création de l'objet formdata
+  //     const formData = new FormData(formModal2);
+  //     console.log(formData);
+
+  //     // Envoie
+  //     envoyerProjet(formData);
+
+  //     // Réinitialisation du formulaire
+  //     formModal2.reset();
+  //   }
 } else {
   // le site se comporte normalement
 }
-
-// const closeModal = function (e) {
-//   if (modal === null) return;
-//   e.preventDefault();
-//   modal.style.display = "none";
-//   modal.setAttribute("aria-hidden", "true");
-//   modal.removeAttribute("aria-modal");
-//   modal = target;
-//   modal.removeEventListener("click", closeModal);
-//   modal
-//     .querySelector(".js-modal-close")
-//     .removeEventListener("click", closeModal);
-//   modal = null;
-// };
