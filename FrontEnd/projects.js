@@ -220,6 +220,10 @@ if (
   const modal1 = document.createElement("aside");
   modal1.classList.add("modal1");
   modal1.role = "dialog";
+  modal1.setAttribute(
+    "style",
+    " position: fixed; top: 0px; left: 0px; height: 100%; width: 100%; background: rgba(0, 0, 0, 0.3); border-radius: 10px; display: flex; justify-content: space-around; align-items: center;"
+  );
   modal1.style.display = "none";
   sectionGallery.appendChild(modal1);
 
@@ -243,15 +247,16 @@ if (
   modalWrapper.classList.add("modalWrapper");
   modalWrapper.setAttribute(
     "style",
-    "display: flex; flex-direction: column; align-items: center; gap: 40px; color: black; padding: 20px; border:none; background-color: white;"
+    "margin-top: 260px; display: flex; flex-direction: column; align-items: center; gap: 20px; color: black; padding: 0px; border:none; background-color: white; width: 630px; max-width: calc(100vw - 18px); max-height: calc(100vh - 20px); overflow: auto; border-radius: 10px;"
   );
+
   modal1.appendChild(modalWrapper);
 
   const iconFermetureModal1 = document.createElement("img");
   iconFermetureModal1.src = "svg/xmark.svg";
   iconFermetureModal1.setAttribute(
     "style",
-    "width: 24px; height:24px; position: relative; left : 290px;"
+    "width: 24px; height:24 px; position: relative; left : 290px; padding: 25px 25px 0px 0px; margin: 0px;"
   );
   modalWrapper.appendChild(iconFermetureModal1);
   iconFermetureModal1.addEventListener("click", async function () {
@@ -262,14 +267,14 @@ if (
   titleModal.innerText = "Galerie photo";
   titleModal.setAttribute(
     "style",
-    "margin: auto; font-family: Work Sans; font-size: 26px; padding-top:10px;"
+    "margin: auto; font-family: Work Sans; font-size: 26px; padding: 0px;"
   );
   modalWrapper.appendChild(titleModal);
 
   const galleryModal = document.createElement("div");
   galleryModal.setAttribute(
     "style",
-    "display: grid; grid-template-columns: 78px 78px 78px 78px 78px; gap: 15px; margin: auto; border-bottom: green 1px solid; padding: 20px;"
+    "display: grid; grid-template-columns: 78px 78px 78px 78px 78px; gap: 15px; margin: auto; border-bottom: green 1px solid; padding: 25px 12.5px 70px 12.5px;"
   );
   modalWrapper.appendChild(galleryModal);
 
@@ -343,7 +348,7 @@ if (
   galleryModal.appendChild(iconMove);
   iconMove.setAttribute(
     "style",
-    "width: 17px; height:17px; position: relative; bottom: 279px; right: 60px; z-index:2;"
+    "width: 17px; height:17px; position: absolute; top: 446px; left: 620px; z-index:3;"
   );
 
   const buttonAjoutPhoto = document.createElement("button");
@@ -363,7 +368,7 @@ if (
   lienSuppression.innerText = "Supprimer la galerie";
   lienSuppression.setAttribute(
     "style",
-    "font-size:14px; width: 237px; height: 36px; text-align:center; color: #D65353;"
+    "font-size:14px; width: 237px; height: 36px; text-align:center; color: #D65353; padding-bottom: 25px;"
   );
   modalWrapper.appendChild(lienSuppression);
 
@@ -372,12 +377,13 @@ if (
   const modal2 = document.createElement("aside");
   modal2.classList.add("modal2");
   modal2.role = "dialog";
+  modal2.setAttribute(
+    "style",
+    " position: fixed; top: 0px; left: 0px; height: 100%; width: 100%; background: rgba(0, 0, 0, 0.3); display: flex; justify-content: space-around; align-items: center;"
+  );
   modal2.style.display = "none";
-  sectionGallery.appendChild(modal2);
 
-  // modal2.addEventListener("click", async function () {
-  //   modal2.style.display = "none";
-  // });
+  sectionGallery.appendChild(modal2);
 
   const modalWrapper2 = document.createElement("div");
   modalWrapper2.classList.add("modalWrapper");

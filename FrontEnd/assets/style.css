@@ -295,6 +295,7 @@ nav li {
   overflow: auto;
   padding: 50px;
   border-radius: 10px;
+  background-color: white;
 }
 
 .modal2 {
