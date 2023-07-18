@@ -88,6 +88,7 @@ video {
 img.gallery {
   width: 30%;
 }
+
 /* HTML5 display-role reset for older browsers */
 article,
 aside,
@@ -103,11 +104,6 @@ section {
   display: block;
 }
 
-header {
-  margin: 0px;
-  width: 100%;
-}
-
 ol,
 ul {
   list-style: none;
@@ -116,6 +112,7 @@ blockquote,
 q {
   quotes: none;
 }
+
 blockquote:before,
 blockquote:after,
 q:before,
@@ -127,7 +124,8 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
 }
-/** end reset css**/
+/************************************************************* Généralités******************************************/
+
 body {
   margin: auto;
   font-family: "Work Sans";
@@ -135,44 +133,13 @@ body {
   margin: 0px;
 }
 
-.lien_login {
-  text-decoration: none;
-  padding: 0;
-  font-size: 14;
-  font-family: "Work Sans";
-  color: black;
-}
-
-.lien_logout {
-  text-decoration: none;
-  padding: 0px;
-  font-size: 14;
-  font-family: "Work Sans";
-  color: black;
-  display: none;
-}
-
-.lien_login:hover,
-.lien_logout:hover {
-  color: #b1663c;
-}
-
-.header-barrenav {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  order: 2;
-  margin: auto;
-  margin-top: 50px;
-  margin-bottom: 50px;
-  width: 1140px;
-}
-
 header {
   display: flex;
   flex-direction: column;
   margin: 0px;
   padding: 0px;
+  margin: 0px;
+  width: 100%;
 }
 
 main {
@@ -207,14 +174,9 @@ h2 {
   font-size: 30px;
   color: #1d6154;
 }
-nav ul {
-  display: flex;
-  align-items: center;
-  list-style-type: none;
-}
-nav li {
-  padding: 0 10px;
-  font-size: 1.2em;
+
+a {
+  color: black;
 }
 
 a:hover {
@@ -229,6 +191,41 @@ li:hover {
 button:hover {
   cursor: pointer;
 }
+
+/**********************************************Header détails ***************************************************/
+
+.lien_login:hover,
+.lien_logout:hover {
+  color: #b1663c;
+}
+
+.header-barrenav {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  order: 2;
+  margin: auto;
+  margin-top: 50px;
+  margin-bottom: 50px;
+  width: 1140px;
+}
+
+nav ul {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+nav li {
+  padding: 0 0px;
+  font-size: 1.2em;
+}
+
+.insta {
+  padding-top: 5px;
+  max-width: 15px;
+}
+/************************************************Intro***********************************************************/
+
 #introduction {
   display: flex;
   flex-direction: row;
@@ -240,48 +237,26 @@ button:hover {
 }
 #introduction img {
   display: flex;
-  /* margin: auto; */
   width: 80%;
 }
-
 #introduction article {
   flex: 1;
 }
 #introduction h2 {
   margin-bottom: 1em;
 }
-
 #introduction p {
   margin-bottom: 0.5em;
 }
 
-.buttonFilters {
-  display: flex;
-  flex-direction: row;
-  gap: 10px;
-  justify-content: center;
-  align-items: center;
-  margin: 10px;
-}
-
-.filters {
-  font-family: "Syne";
-  padding: 1%;
-  color: #1d6154;
-  border: #1d6154 1px solid;
-  border-radius: 60px;
-  background-color: white;
-}
-
+/*Zone Gallery détails----------------------------------------------------------------------------------------------------------------------*/
 .filters:hover {
   font-weight: 800;
 }
-
 #portfolio h2 {
   text-align: center;
   margin-bottom: 1em;
 }
-
 .gallery img {
   width: 366px;
 }
@@ -293,7 +268,7 @@ button:hover {
   grid-row-gap: 20px;
 }
 
-/* modale*/
+/*Modales détails---------------------------------------------------------------------------------------------------------------------------*/
 
 .modal1 img:hover,
 .modal2 img:hover {

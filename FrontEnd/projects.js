@@ -11,21 +11,27 @@ const categories = await reponse2.json();
 // import { ajoutFontawesome } from "./scripts/main";
 // ajoutFontawesome();
 
-//sélection du header
+//sélection du header et des liens du login / logout du menu de navigation
 
 const header = document.querySelector("header");
+
+const lienLogin = document.querySelector(".lien_login");
+lienLogin.setAttribute("style", "text-decoration: none; padding: 0;");
+
+const lienLogout = document.querySelector(".lien_logout");
+lienLogout.style.setProperty("display", "none");
 
 // Sélection de l'élément HTML avec la classe "portfolio" et stockage dans la variable 'sectionPortfolio'
 
 const sectionPortfolio = document.querySelector(".portfolio");
 
-// création zone div pour titre + button modifier login
+// Création d'une zone div pour le titre (et qui sert pour la version login avec icon/bouton modfier)
 
 const portfolioTitleChange = document.createElement("div");
 sectionPortfolio.appendChild(portfolioTitleChange);
 portfolioTitleChange.setAttribute(
   "style",
-  "display: flex; flex-direction: row; justify-content : center; align-items : center; gap: 20px;"
+  "display: flex; flex-direction: row; justify-content : center; align-items : center; gap: 10px;"
 );
 
 // Création d'un élément <h2> pour le titre "Mes projets" et ajout à 'sectionPortfolio'
@@ -33,11 +39,16 @@ portfolioTitleChange.setAttribute(
 const portfolioTitle = document.createElement("h2");
 portfolioTitle.innerText = "Mes projets";
 portfolioTitleChange.appendChild(portfolioTitle);
+portfolioTitle.setAttribute("style", "padding-right: 10px;");
 
 // Création d'un conteneur pour les boutons de filtre et ajout à 'sectionPortfolio'
 
 const buttonFilters = document.createElement("div");
 buttonFilters.classList.add("buttonFilters");
+buttonFilters.setAttribute(
+  "style",
+  " display: flex; flex-direction: row; gap: 10px; justify-content: center; align-items: center; margin: 10px;"
+);
 sectionPortfolio.appendChild(buttonFilters);
 
 // Sélection de l'élément HTML avec la classe "gallery" et stockage dans la variable 'sectionGallery'
@@ -71,15 +82,21 @@ function generateProjects(projects) {
   }
 }
 
-//appel de la fonction pour génerer les projets
+//Appel de la fonction pour génerer les projets
 
 generateProjects(projects);
+
+// -----------------------------------------------------------------------Boutons Filtres
 
 // Création du bouton "Tous" pour afficher tous les projets + ajout listener d'événement sur le bouton "Tous" pour afficher tous les projets
 
 const buttonFilterAll = document.createElement("button");
 buttonFilterAll.innerText = "Tous";
 buttonFilterAll.classList.add("filters");
+buttonFilterAll.setAttribute(
+  "style",
+  " font-family: Syne; padding: 1%; color: #1d6154; border: #1d6154 1px solid; border-radius: 60px; background-color: white;"
+);
 buttonFilters.appendChild(buttonFilterAll);
 buttonFilterAll.addEventListener("click", function () {
   const piecesFiltres = projects.filter(function (project) {
@@ -101,6 +118,11 @@ categorySet.forEach((categoryName) => {
   const buttonFilter = document.createElement("button");
   buttonFilter.innerText = categoryName;
   buttonFilter.classList.add("filters");
+  buttonFilter.setAttribute(
+    "style",
+    " font-family: Syne; padding: 1%; color: #1d6154; border: #1d6154 1px solid; border-radius: 60px; background-color: white;"
+  );
+
   buttonFilters.appendChild(buttonFilter);
 
   // ajout d'un listener d'évenement sur chaquez bouton en fonction de l'ID de la catégorie
@@ -127,7 +149,7 @@ const tokenRegistred = window.localStorage.getItem("token");
 
 if (
   tokenRegistred ==
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTY4OTU5OTA1MSwiZXhwIjoxNjg5Njg1NDUxfQ.d8Q9JnOZL4R0eh5pA7BuGITMpbDTQGRIyvrxhHSC-mI"
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTY4OTY2NTE3NCwiZXhwIjoxNjg5NzUxNTc0fQ.d2RFOI6cbfwe8bdroYq_jjunPbHVeqmeUoOPDdo4Pto"
 ) {
   // barre noire dans le header + logo + texte mode edition + button publier les changements
 
@@ -160,31 +182,34 @@ if (
 
   //login devient logout
 
-  const lienLogin = document.querySelector(".lien_login");
   lienLogin.style.setProperty("display", "none");
 
-  const lienLogout = document.querySelector(".lien_logout");
-  lienLogout.style.setProperty("display", "flex");
+  lienLogout.setAttribute("style", "text-decoration: none; display: null");
 
   // Modifier la zone intro (logo + texte)
 
+  // Sélection d'une zone div ou on applique les propriétés souhaitées
   const changeIntro = document.querySelector(".change-intro");
   changeIntro.setAttribute(
     "style",
-    "width: 100%; display: flex; flex-direction: row; justify-content: flex-start; margin-top: 30px;"
+    "width: 100%; max-width: 1140px; margin: auto; display: flex; flex-direction: row; justify-content: flex-start; padding-top: 15px"
   );
 
+  //Création et ajout de l'icone de modification
+
+  const iconIntro = document.createElement("img");
+  iconIntro.src = " svg/Group.svg";
+  iconIntro.setAttribute("style", "padding: 0px; margin: 0px;");
+  changeIntro.appendChild(iconIntro);
+
+  // Création du bouton modifier
   const modifIntro = document.createElement("button");
   modifIntro.innerText = "Modifier";
   modifIntro.setAttribute(
     "style",
-    "display: flex; color: black; margin: 0px; font-family: Work Sans; border:none; background-color: white;"
+    "color: black; font-family: Work Sans; border:none; background-color: white;"
   );
   changeIntro.appendChild(modifIntro);
-
-  const iconIntro = document.createElement("img");
-  iconIntro.src = " svg/Group.svg";
-  changeIntro.appendChild(iconIntro);
 
   // Modifier la zone 2 (logo + texte)
 
@@ -198,15 +223,11 @@ if (
   modal1.style.display = "none";
   sectionGallery.appendChild(modal1);
 
-  // modal1.addEventListener("click", async function () {
-  //   modal1.style.display = "none";
-  // });
-
   const modifGallery = document.createElement("button");
   modifGallery.innerText = "Modifier";
   modifGallery.setAttribute(
     "style",
-    "display: flex; color: black; margin: 0px; font-family: Work Sans; border:none; background-color: white;"
+    "padding: 0px; margin: 0px; display: flex; color: black; margin: 0px; font-family: Work Sans; border:none; background-color: white;"
   );
   modifGallery.addEventListener("click", async function () {
     modal1.style.display = null;
@@ -574,64 +595,6 @@ if (
     console.log("envoyé");
     formModal2.reset();
   });
-
-  // const token = localStorage.getItem("token");
-  // console.log(token);
-
-  // async function envoyerProjet(nouveauProjet) {
-  //   try {
-  //     const response = await fetch("http://localhost:5678/api/works", {
-  //       method: "POST",
-  //       headers: {
-  //         accept: "*/*",
-  //         Authorization: `Bearer ${token}`,
-  //       },
-  //       body: nouveauProjet,
-  //     });
-
-  //     if (response.ok) {
-  //       const projetEnregistre = await response.json();
-  //       console.log("Projet enregistré :", projetEnregistre);
-  //     } else {
-  //       console.log(
-  //         "Erreur lors de l'envoi du projet :",
-  //         response.status,
-  //         response.statusText
-  //       );
-  //     }
-  //   } catch (error) {
-  //     console.error("Erreur :", error);
-  //   }
-  // }
-
-  // buttonValidationModal2.addEventListener("click", function () {
-  //   if (
-  //     buttonAjoutPhotoM2.value === "" ||
-  //     titlePhotoModal2.value === "" ||
-  //     categoryPhotoModal2.value === ""
-  //   ) {
-  //     alert("Merci de compléter tous les champs");
-  //   } else {
-  //     buttonValidationModal2.setAttribute(
-  //       "style",
-  //       "font-family: Syne; font-weight: 700; font-size:14px; width: 237px; height: 36px; text-align:center; background-color: #1D6154;  color: white; border-radius:60px; border:none;"
-  //     );
-  //     // création d'un event listener submit du formulaire avec form data
-
-  //     formModal2.addEventListener("submit", async function (event) {
-  //       event.preventDefault();
-  //     });
-
-  //     //création de l'objet formdata
-  //     const formData = new FormData(formModal2);
-  //     console.log(formData);
-
-  //     // Envoie
-  //     envoyerProjet(formData);
-
-  //     // Réinitialisation du formulaire
-  //     formModal2.reset();
-  //   }
 } else {
   // le site se comporte normalement
 }
