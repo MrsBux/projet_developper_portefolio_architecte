@@ -275,41 +275,6 @@ nav li {
   cursor: pointer;
 }
 
-.modal1 {
-  position: fixed;
-  top: 0px;
-  left: 0px;
-  height: 100%;
-  width: 100%;
-  background: rgba(0, 0, 0, 0.3);
-  border-radius: 10px;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-}
-
-.modalWrapper {
-  width: 630px;
-  max-width: calc(100vw - 20px);
-  max-height: calc(100vh - 20px);
-  overflow: auto;
-  padding: 50px;
-  border-radius: 10px;
-  background-color: white;
-}
-
-.modal2 {
-  position: fixed;
-  top: 0px;
-  left: 0px;
-  height: 100%;
-  width: 100%;
-  background: rgba(0, 0, 0, 0.3);
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-}
-
 .inputModal2 {
   width: 420px;
   height: 51px;

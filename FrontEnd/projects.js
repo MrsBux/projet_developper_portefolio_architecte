@@ -149,7 +149,7 @@ const tokenRegistred = window.localStorage.getItem("token");
 
 if (
   tokenRegistred ==
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTY4OTY2NTE3NCwiZXhwIjoxNjg5NzUxNTc0fQ.d2RFOI6cbfwe8bdroYq_jjunPbHVeqmeUoOPDdo4Pto"
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTY4OTc1Mjg1OCwiZXhwIjoxNjg5ODM5MjU4fQ.EmFbAfEvVghNdIv8dOHLcl6H1JBz6cB4lB0b_C8Y4Zs"
 ) {
   // barre noire dans le header + logo + texte mode edition + button publier les changements
 
@@ -247,7 +247,7 @@ if (
   modalWrapper.classList.add("modalWrapper");
   modalWrapper.setAttribute(
     "style",
-    "margin-top: 260px; display: flex; flex-direction: column; align-items: center; gap: 20px; color: black; padding: 0px; border:none; background-color: white; width: 630px; max-width: calc(100vw - 18px); max-height: calc(100vh - 20px); overflow: auto; border-radius: 10px;"
+    "margin: auto; margin-top: 150px; display: flex; flex-direction: column; align-items: center; gap: 20px; color: black; padding: 0px; border:none; background-color: white; height: 731px; width: 630px;overflow: auto; border-radius: 10px;"
   );
 
   modal1.appendChild(modalWrapper);
@@ -274,7 +274,7 @@ if (
   const galleryModal = document.createElement("div");
   galleryModal.setAttribute(
     "style",
-    "display: grid; grid-template-columns: 78px 78px 78px 78px 78px; gap: 15px; margin: auto; border-bottom: green 1px solid; padding: 25px 12.5px 70px 12.5px;"
+    "display: grid; grid-template-columns: 78px 78px 78px 78px 78px; gap: 15px; margin: auto; border-bottom: green 1px solid; padding-bottom: 50px;"
   );
   modalWrapper.appendChild(galleryModal);
 
@@ -294,7 +294,24 @@ if (
         "style",
         "box-sizing: border-box; width : 78px  ;"
       );
-      // );
+
+      // icon move + add listener apparition/disparition
+
+      const iconMove = document.createElement("img");
+      iconMove.src = "svg/Move.svg";
+      projectElementModal.appendChild(iconMove);
+      iconMove.setAttribute(
+        "style",
+        "width: 17px; height:17px; position: relative; top: 42px; left: 35px; z-index:3; display: none;"
+      );
+
+      imageElementModal.addEventListener("click", () => {
+        iconMove.style.display = null;
+      });
+
+      iconMove.addEventListener("click", () => {
+        iconMove.style.display = "none";
+      });
 
       // icon suppression et add listener supression du projet
 
@@ -343,14 +360,6 @@ if (
 
   generateProjectsModal(projects);
 
-  const iconMove = document.createElement("img");
-  iconMove.src = "svg/Move.svg";
-  galleryModal.appendChild(iconMove);
-  iconMove.setAttribute(
-    "style",
-    "width: 17px; height:17px; position: absolute; top: 446px; left: 620px; z-index:3;"
-  );
-
   const buttonAjoutPhoto = document.createElement("button");
   buttonAjoutPhoto.innerText = "Ajouter une photo";
   buttonAjoutPhoto.setAttribute(
@@ -389,7 +398,7 @@ if (
   modalWrapper2.classList.add("modalWrapper");
   modalWrapper2.setAttribute(
     "style",
-    "display: flex; flex-direction: column; align-items: center; gap: 40px; color: black; padding: 20px; ; background-color: white;"
+    "margin: auto; margin-top: 150px; display: flex; flex-direction: column; align-items: center; gap: 20px; color: black; padding: 20px; ; background-color: white; width: 630px; height: 670px; overflow: auto; border-radius: 10px"
   );
   modal2.appendChild(modalWrapper2);
 
@@ -425,7 +434,7 @@ if (
   titleModal2.innerText = "Ajout photo";
   titleModal2.setAttribute(
     "style",
-    "margin: auto; font-family: Work Sans; font-size: 26px;"
+    "margin: auto; margin-top: 20px; margin-bottom: 30px;  font-family: Work Sans; font-size: 26px;"
   );
   modalWrapper2.appendChild(titleModal2);
 
@@ -443,7 +452,7 @@ if (
   const fieldsetModal2 = document.createElement("fieldset");
   fieldsetModal2.setAttribute(
     "style",
-    "display: flex; flex-direction: column; justify:content:flex-start; align-items: flex-start; gap: 40px; color: black; padding: 0px 20px 20px 0px; border:none; background-color: white;"
+    "display: flex; flex-direction: column; justify:content:flex-start; align-items: flex-start; gap: 20px; color: black; padding: 0px 20px 20px 0px; border:none; background-color: white;"
   );
   formModal2.appendChild(fieldsetModal2);
 

@@ -77,7 +77,7 @@ buttonConnexion.addEventListener("click", async function () {
 
     window.localStorage.setItem(
       "token",
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTY4OTY2NTE3NCwiZXhwIjoxNjg5NzUxNTc0fQ.d2RFOI6cbfwe8bdroYq_jjunPbHVeqmeUoOPDdo4Pto"
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTY4OTc1Mjg1OCwiZXhwIjoxNjg5ODM5MjU4fQ.EmFbAfEvVghNdIv8dOHLcl6H1JBz6cB4lB0b_C8Y4Zs"
     );
     setTimeout(function () {
       window.location.href = "index.html";
