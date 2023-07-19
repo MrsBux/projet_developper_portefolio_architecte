@@ -67,18 +67,14 @@ buttonConnexion.addEventListener("click", async function () {
     },
   });
 
-  const responseBody = [responsemdp.body];
+  const responseBody = await responsemdp.json();
   console.log(responseBody);
-
-  // const token =
+  debugger;
 
   if (responsemdp.status === 200) {
     console.log("Bien joué");
 
-    window.localStorage.setItem(
-      "token",
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTY4OTc1Mjg1OCwiZXhwIjoxNjg5ODM5MjU4fQ.EmFbAfEvVghNdIv8dOHLcl6H1JBz6cB4lB0b_C8Y4Zs"
-    );
+    window.localStorage.setItem("token", responseBody.token);
     setTimeout(function () {
       window.location.href = "index.html";
     }, 100);

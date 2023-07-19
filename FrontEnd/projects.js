@@ -344,6 +344,7 @@ if (
           }
         );
       });
+      // debugger;
 
       const figureCaptionElement = document.createElement("figurecaption");
       figureCaptionElement.innerText = "";
@@ -439,8 +440,8 @@ if (
   modalWrapper2.appendChild(titleModal2);
 
   const formModal2 = document.createElement("form");
-  formModal2.setAttribute("method", "post");
-  formModal2.setAttribute("action", "submit.php");
+  // formModal2.setAttribute("method", "post");
+  // formModal2.setAttribute("action", "submit.php");
   formModal2.setAttribute("name", "fileinfo");
   formModal2.setAttribute("enctype", "multipart/form-data");
   formModal2.setAttribute(
