@@ -143,14 +143,13 @@ categorySet.forEach((categoryName) => {
 
 const tokenRegistred = window.localStorage.getItem("token");
 
+const monToken = window.localStorage.getItem("token");
+
 // Modification du format de la section 1
 
 // Boucle login / log out
 
-if (
-  tokenRegistred ==
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTY4OTc1Mjg1OCwiZXhwIjoxNjg5ODM5MjU4fQ.EmFbAfEvVghNdIv8dOHLcl6H1JBz6cB4lB0b_C8Y4Zs"
-) {
+if (tokenRegistred == monToken) {
   // barre noire dans le header + logo + texte mode edition + button publier les changements
 
   const barreEditHeader = document.createElement("div");
