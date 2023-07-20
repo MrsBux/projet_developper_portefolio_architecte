@@ -142,14 +142,13 @@ categorySet.forEach((categoryName) => {
 //créatin d'une variable token
 
 const tokenRegistred = window.localStorage.getItem("token");
-
-const monToken = window.localStorage.getItem("token");
+console.log(tokenRegistred);
 
 // Modification du format de la section 1
 
 // Boucle login / log out
 
-if (tokenRegistred == monToken) {
+if (tokenRegistred) {
   // barre noire dans le header + logo + texte mode edition + button publier les changements
 
   const barreEditHeader = document.createElement("div");
@@ -326,22 +325,32 @@ if (tokenRegistred == monToken) {
         e.preventDefault();
         e.stopPropagation();
 
-        const idElementmodal = project.id;
-        console.log(idElementmodal);
+        const idElementModal = project.id;
+        console.log(idElementModal);
 
         const token = localStorage.getItem("token");
         console.log(token);
 
-        responseDelete = await fetch(
-          `http://localhost:5678/api/works/${idElementmodal}`,
-          {
-            method: "DELETE",
-            headers: {
-              accept: "*/*",
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
+        const elementASupprimer = document.getElementById(idElementModal);
+        console.log(elementASupprimer);
+
+        // if (elementASupprimer) {
+        //   elementASupprimer.remove();
+        // } else {
+        //   console.log("L'élément à supprimer n'existe pas");
+        // }
+
+        // const responseDelete = await fetch(
+        //   `http://localhost:5678/api/works/${idElementModal}`,
+        //   {
+        //     method: "DELETE",
+        //     headers: {
+        //       accept: "*/*",
+        //       Authorization: `Bearer ${token}`,
+        //     },
+        //   }
+        // );
+        // Suppression de l'élément du DOM s'il existe
       });
       // debugger;
 
