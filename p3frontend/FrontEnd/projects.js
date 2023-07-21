@@ -67,6 +67,8 @@ function generateProjects(projects) {
     const idElement = document.createElement("p");
     idElement.innerText = project.id;
 
+    projectElement.id = project.id;
+
     const idCategory = document.createElement("p");
     idCategory.innerText = project.categoryId;
 
@@ -142,7 +144,6 @@ categorySet.forEach((categoryName) => {
 //créatin d'une variable token
 
 const tokenRegistred = window.localStorage.getItem("token");
-console.log(tokenRegistred);
 
 // Modification du format de la section 1
 
@@ -321,7 +322,7 @@ if (tokenRegistred) {
         "width: 17px; height:17px; position: relative; top:25px; left: 55px; z-index:2;"
       );
 
-      iconSuppression.addEventListener("click", async (e) => {
+      iconSuppression.addEventListener("click", async function (e) {
         e.preventDefault();
         e.stopPropagation();
 
@@ -329,28 +330,28 @@ if (tokenRegistred) {
         console.log(idElementModal);
 
         const token = localStorage.getItem("token");
-        console.log(token);
 
-        const elementASupprimer = document.getElementById(idElementModal);
+        const elementASupprimer = projectElementModal;
         console.log(elementASupprimer);
 
-        // if (elementASupprimer) {
-        //   elementASupprimer.remove();
-        // } else {
-        //   console.log("L'élément à supprimer n'existe pas");
-        // }
+        const projectElement = document.getElementById(project.id);
 
-        // const responseDelete = await fetch(
-        //   `http://localhost:5678/api/works/${idElementModal}`,
-        //   {
-        //     method: "DELETE",
-        //     headers: {
-        //       accept: "*/*",
-        //       Authorization: `Bearer ${token}`,
-        //     },
-        //   }
-        // );
-        // Suppression de l'élément du DOM s'il existe
+        const elementASupprimerGallery = projectElement;
+        console.log(elementASupprimerGallery);
+
+        elementASupprimerGallery.remove();
+        elementASupprimer.remove();
+
+        const responseDelete = await fetch(
+          `http://localhost:5678/api/works/${idElementModal}`,
+          {
+            method: "DELETE",
+            headers: {
+              accept: "*/*",
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
       });
       // debugger;
 
@@ -571,19 +572,6 @@ if (tokenRegistred) {
 
   // fonction ajout d'un nouveau projet
 
-  async function envoyerProjet(formData) {
-    const token = localStorage.getItem("token");
-    const responseEnvoi = await fetch("http://localhost:5678/api/works", {
-      method: "POST",
-      headers: {
-        accept: "*/*",
-        Authorization: `Bearer ${token}`,
-      },
-      body: formData,
-    });
-    console.log(responseEnvoi);
-  }
-
   buttonValidationModal2.addEventListener("click", async function () {
     const image = buttonAjoutPhotoM2.files[0];
     const title = titlePhotoModal2.value;
@@ -613,12 +601,61 @@ if (tokenRegistred) {
     formData.append("image", image);
     formData.append("title", title);
     formData.append("category", catId);
-    console.log(formData);
 
-    envoyerProjet(formData);
-    console.log("envoyé");
+    const token = localStorage.getItem("token");
+    const responseEnvoi = await fetch("http://localhost:5678/api/works", {
+      method: "POST",
+      headers: {
+        accept: "*/*",
+        Authorization: `Bearer ${token}`,
+      },
+      body: formData,
+    });
+    const responseEnvoiJ = await responseEnvoi.json();
+    console.log(responseEnvoiJ);
+
+    // Appel de la fonction pour ajouter le nouveau projet aux galeries
+    ajouterNouveauProjet(responseEnvoiJ);
+
+    alert("Projet enregistré");
     formModal2.reset();
+    reader.reset();
   });
+
+  function ajouterNouveauProjet(nouveauProjet) {
+    const newProjectElement = document.createElement("figure");
+    newProjectElement.id = nouveauProjet.id;
+
+    const newIdCategory = document.createElement("p");
+    newIdCategory.innerText = nouveauProjet.categoryId;
+
+    const newImageElement = document.createElement("img");
+    newImageElement.src = nouveauProjet.imageUrl;
+
+    const newTitleElement = document.createElement("p");
+    newTitleElement.innerText = nouveauProjet.title;
+
+    sectionGallery.appendChild(newProjectElement);
+    newProjectElement.appendChild(newImageElement);
+    newProjectElement.appendChild(newTitleElement);
+
+    // Ajout également à la galerie modale
+    const newProjectElementModal = document.createElement("figure");
+    newProjectElementModal.id = nouveauProjet.id;
+
+    const newIdCategoryModal = document.createElement("p");
+    newIdCategoryModal.innerText = nouveauProjet.categoryId;
+
+    const newImageElementModal = document.createElement("img");
+    newImageElementModal.src = nouveauProjet.imageUrl;
+
+    const newTitleElementModal = document.createElement("p");
+    newTitleElementModal.innerText = nouveauProjet.title;
+
+    galleryModal.appendChild(newProjectElementModal);
+    newProjectElementModal.appendChild(newImageElementModal);
+    newProjectElementModal.appendChild(newTitleElementModal);
+  }
 } else {
   // le site se comporte normalement
 }
