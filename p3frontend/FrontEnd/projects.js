@@ -618,8 +618,8 @@ if (tokenRegistred) {
     ajouterNouveauProjet(responseEnvoiJ);
 
     alert("Projet enregistré");
+    buttonAjoutPhotoM2.value = "";
     formModal2.reset();
-    reader.reset();
   });
 
   function ajouterNouveauProjet(nouveauProjet) {
@@ -641,20 +641,90 @@ if (tokenRegistred) {
 
     // Ajout également à la galerie modale
     const newProjectElementModal = document.createElement("figure");
+    newProjectElementModal.setAttribute(
+      "style",
+      "max-width: 100%; padding-bottom: 17.5px; display: flex; flex-direction: column"
+    );
     newProjectElementModal.id = nouveauProjet.id;
 
     const newIdCategoryModal = document.createElement("p");
     newIdCategoryModal.innerText = nouveauProjet.categoryId;
 
     const newImageElementModal = document.createElement("img");
+    newImageElementModal.setAttribute(
+      "style",
+      "box-sizing: border-box; width: 78px;"
+    );
     newImageElementModal.src = nouveauProjet.imageUrl;
+
+    const newIconMove = document.createElement("img");
+    newIconMove.src = "svg/Move.svg";
+    newProjectElementModal.appendChild(newIconMove);
+    newIconMove.setAttribute(
+      "style",
+      "width: 17px; height:17px; position: relative; top: 42px; left: 35px; z-index:3; display: none;"
+    );
+
+    newImageElementModal.addEventListener("click", () => {
+      newIconMove.style.display = null;
+    });
+
+    newIconMove.addEventListener("click", () => {
+      newIconMove.style.display = "none";
+    });
+
+    // icon suppression et add listener supression du projet
+
+    const newIconSuppression = document.createElement("img");
+    newIconSuppression.src = "svg/suppr.svg";
+    newProjectElementModal.appendChild(newIconSuppression);
+    newIconSuppression.setAttribute(
+      "style",
+      "width: 17px; height:17px; position: relative; top:25px; left: 55px; z-index:2;"
+    );
+
+    newIconSuppression.addEventListener("click", async function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+
+      const newIdElementModal = nouveauProjet.id;
+
+      const token = localStorage.getItem("token");
+
+      const newElementASupprimer = newProjectElementModal;
+
+      const newProjectElement = document.getElementById(nouveauProjet.id);
+
+      const newElementASupprimerGallery = newProjectElement;
+
+      newElementASupprimerGallery.remove();
+      newElementASupprimer.remove();
+
+      const responseDelete = await fetch(
+        `http://localhost:5678/api/works/${newIdElementModal}`,
+        {
+          method: "DELETE",
+          headers: {
+            accept: "*/*",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+    });
 
     const newTitleElementModal = document.createElement("p");
     newTitleElementModal.innerText = nouveauProjet.title;
 
+    const newFigureCaptionElement = document.createElement("figurecaption");
+    newFigureCaptionElement.innerText = "";
+
+    const newLienEdit = document.createElement("a");
+    newLienEdit.innerText = "Editer";
+
     galleryModal.appendChild(newProjectElementModal);
     newProjectElementModal.appendChild(newImageElementModal);
-    newProjectElementModal.appendChild(newTitleElementModal);
+    newProjectElementModal.appendChild(newFigureCaptionElement);
+    newFigureCaptionElement.appendChild(newLienEdit);
   }
 } else {
   // le site se comporte normalement
