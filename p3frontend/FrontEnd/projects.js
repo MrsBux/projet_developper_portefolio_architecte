@@ -620,6 +620,8 @@ if (tokenRegistred) {
     alert("Projet enregistré");
     buttonAjoutPhotoM2.value = "";
     formModal2.reset();
+
+    // faire une boucle if et si buttonAjoutphoto M2 prendune certaine valeur "" alors pas de preview ?
   });
 
   function ajouterNouveauProjet(nouveauProjet) {
