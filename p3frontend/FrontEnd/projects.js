@@ -100,7 +100,9 @@ buttonFilterAll.setAttribute(
   " font-family: Syne; padding: 1%; color: #1d6154; border: #1d6154 1px solid; border-radius: 60px; background-color: white;"
 );
 buttonFilters.appendChild(buttonFilterAll);
-buttonFilterAll.addEventListener("click", function () {
+buttonFilterAll.addEventListener("click", function (e) {
+  e.preventDefault();
+  e.stopPropagation();
   const piecesFiltres = projects.filter(function (project) {
     return project;
   });
@@ -128,7 +130,9 @@ categorySet.forEach((categoryName) => {
   buttonFilters.appendChild(buttonFilter);
 
   // ajout d'un listener d'évenement sur chaquez bouton en fonction de l'ID de la catégorie
-  buttonFilter.addEventListener("click", function () {
+  buttonFilter.addEventListener("click", function (e) {
+    e.preventDefault();
+    e.stopPropagation();
     const piecesFiltres = projects.filter(function (project) {
       return (
         project.categoryId ===
@@ -284,31 +288,33 @@ if (tokenRegistred) {
       const projectElementModal = document.createElement("figure");
       projectElementModal.setAttribute(
         "style",
-        "max-width: 100%; display: flex; flex-direction: column"
+        "max-width: 100%; display: flex; flex-direction: column; position: sticky;"
       );
 
       const imageElementModal = document.createElement("img");
       imageElementModal.src = project.imageUrl;
+      // imageElementModal.classList.add("img-modal1");
       imageElementModal.setAttribute(
         "style",
-        "box-sizing: border-box; width : 78px  ;"
+        "box-sizing: border-box; width : 78px; position: relative;"
       );
 
       // icon move + add listener apparition/disparition
 
       const iconMove = document.createElement("img");
       iconMove.src = "svg/Move.svg";
+      iconMove.classList.add("icon-move");
       projectElementModal.appendChild(iconMove);
       iconMove.setAttribute(
         "style",
         "width: 17px; height:17px; position: relative; top: 42px; left: 35px; z-index:3; display: none;"
       );
 
-      imageElementModal.addEventListener("click", () => {
+      imageElementModal.addEventListener("mouseover", () => {
         iconMove.style.display = null;
       });
 
-      iconMove.addEventListener("click", () => {
+      imageElementModal.addEventListener("mouseout", () => {
         iconMove.style.display = "none";
       });
 
@@ -501,7 +507,9 @@ if (tokenRegistred) {
 
   // fonctionnalité de preview de l'image
 
-  buttonAjoutPhotoM2.addEventListener("change", function (event) {
+  buttonAjoutPhotoM2.addEventListener("change", function (e) {
+    e.preventDefault();
+    e.stopPropagation();
     const file = event.target.files[0];
     if (file) {
       const reader = new FileReader();
@@ -572,7 +580,9 @@ if (tokenRegistred) {
 
   // fonction ajout d'un nouveau projet
 
-  buttonValidationModal2.addEventListener("click", async function () {
+  buttonValidationModal2.addEventListener("click", async function (e) {
+    e.preventDefault();
+    e.stopPropagation();
     const image = buttonAjoutPhotoM2.files[0];
     const title = titlePhotoModal2.value;
     const category = categoryPhotoModal2.value;
@@ -672,7 +682,7 @@ if (tokenRegistred) {
     });
 
     newIconMove.addEventListener("click", () => {
-      newIconMove.style.display = "none";
+      newIconMove.style.display = "inline-block";
     });
 
     // icon suppression et add listener supression du projet
