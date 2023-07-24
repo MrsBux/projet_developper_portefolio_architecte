@@ -797,13 +797,9 @@ if (tokenRegistred) {
       e.preventDefault();
       e.stopPropagation();
 
-      const newIdElementModal = nouveauProjet.id;
-
       const token = localStorage.getItem("token");
 
       const newElementASupprimer = newProjectElementModal;
-
-      const newProjectElement = document.getElementById(nouveauProjet.id);
 
       const newElementASupprimerGallery = newProjectElement;
 
