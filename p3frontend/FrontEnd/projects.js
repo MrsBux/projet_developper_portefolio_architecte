@@ -289,7 +289,7 @@ if (tokenRegistred) {
   const galleryModal = document.createElement("div");
   galleryModal.setAttribute(
     "style",
-    "display: grid; grid-template-columns: 78px 78px 78px 78px 78px; gap: 15px; margin: auto; border-bottom: green 1px solid; padding-bottom: 50px;"
+    "display: grid; grid-template-columns: 78px 78px 78px 78px 78px; gap: 10px; margin: auto; border-bottom: green 1px solid; padding-bottom: 50px;"
   );
   modalWrapper.appendChild(galleryModal);
 
@@ -304,7 +304,7 @@ if (tokenRegistred) {
       const projectElementModal = document.createElement("figure");
       projectElementModal.setAttribute(
         "style",
-        "max-width: 100%; display: flex; flex-direction: column; position: sticky;"
+        "max-width: 100%; display: flex; flex-direction: column; height: 140px;"
       );
 
       // création de l'image du projet (chargée depuis l'api)
@@ -319,19 +319,18 @@ if (tokenRegistred) {
 
       const iconMove = document.createElement("img");
       iconMove.src = "svg/Move.svg";
-      iconMove.classList.add("icon-move");
       projectElementModal.appendChild(iconMove);
       iconMove.setAttribute(
         "style",
-        "width: 17px; height:17px; position: relative; top: 42px; left: 35px; z-index:3; display: none;"
+        "width: 17px; height:17px; position: relative; top: 42px; left: 35px; z-index:3; opacity: 0;"
       );
       // eventlistener apparition au survol
       imageElementModal.addEventListener("mouseover", () => {
-        iconMove.style.display = null;
+        iconMove.style.opacity = 1;
       });
       // eventlistener disparition lors de la sortie de la sourie du sruvol
       imageElementModal.addEventListener("mouseout", () => {
-        iconMove.style.display = "none";
+        iconMove.style.opacity = 0;
       });
 
       //création de l'icone suppression de projet et add listener supression du projet
@@ -491,7 +490,7 @@ if (tokenRegistred) {
   titleModal2.innerText = "Ajout photo";
   titleModal2.setAttribute(
     "style",
-    "margin: auto; margin-top: 20px; margin-bottom: 30px;  font-family: Work Sans; font-size: 26px;"
+    "margin: auto; margin-top: 15px; margin-bottom: 30px; padding: 0px;  font-family: Work Sans; font-size: 26px;"
   );
   modalWrapper2.appendChild(titleModal2);
 
@@ -521,14 +520,17 @@ if (tokenRegistred) {
   const zoneAjoutPhoto = document.createElement("div");
   zoneAjoutPhoto.setAttribute(
     "style",
-    "width : 420px; height 169px; display: flex; flex-direction: column; justify:content: center; align-items: center; gap: 15px;  padding: 20px; border: 1px dark-blue solid; background-color: #E8F1F6;"
+    "width : 420px; height 169px; display: flex; flex-direction: column; justify:content: center; align-items: center; gap: 15px;  padding:0px 20px 0px 20px; border: 1px dark-blue solid; background-color: #E8F1F6;"
   );
   fieldsetModal2.appendChild(zoneAjoutPhoto);
 
   // ajout d'une icone img
   const iconAjoutPhoto = document.createElement("img");
   iconAjoutPhoto.src = "svg/picture.svg";
-  iconAjoutPhoto.setAttribute("style", "width: 58px; height:58px;");
+  iconAjoutPhoto.setAttribute(
+    "style",
+    "width: 58px; height:58px; display:null; padding-top: 20px"
+  );
   zoneAjoutPhoto.appendChild(iconAjoutPhoto);
 
   // stockage d'une image vierge dans une constante pour permettre une prévisualisation de l'image que l'utilisateur aura loadé
@@ -557,6 +559,15 @@ if (tokenRegistred) {
   buttonAjoutPhotoM2.setAttribute("style", "display:none");
   zoneAjoutPhoto.appendChild(buttonAjoutPhotoM2);
 
+  // création d'un paragraphe qui spécifie les types de fichiers acceptés
+  const legendFormat = document.createElement("p");
+  legendFormat.innerText = "jpg.png : 4 Mo max";
+  legendFormat.setAttribute(
+    "style",
+    "font-family: Work Sans; font-size:10px; display: null; padding-bottom: 20px;"
+  );
+  zoneAjoutPhoto.appendChild(legendFormat);
+
   // fonctionnalité de preview de l'image
 
   //event listener lorsque la valeur de l"input change (c'ets à dire si un fichier est chargé)
@@ -570,24 +581,28 @@ if (tokenRegistred) {
     // condition if n: si un fichier est chargé alors preview
     if (file) {
       // creation d'une nouvelle instance pour l'objet filerider
+      iconAjoutPhoto.style.display = "none";
+      labelPhoto.style.display = "none";
+      legendFormat.style.display = "none";
       const reader = new FileReader();
 
       // event listener lorsque que le fichié est completement téléchargé
       reader.addEventListener("load", function () {
         // mise à jour de la source de l'image avec les données de l'image chargée
         imagePreview.src = reader.result;
+        const imageDataUrl = imagePreview.src;
       });
+
+      // affichage de l'image en tant que miniature (preview)
+      imagePreview.setAttribute(
+        "style",
+        "max-width: 200px; max-height: 200px; background-size: contain; background-repeat: no-repeat; background-position: center; background-color: #f0f0f0; padding-top: 0px; padding-bottom: 0px;"
+      );
       //lecture du fichier en tant que dataURL
       reader.readAsDataURL(file);
     }
   });
   //------- fin de la fonctionnalité de preview
-
-  // création d'un paragraphe qui spécifie les types de fichiers acceptés
-  const legendFormat = document.createElement("p");
-  legendFormat.innerText = "jpg.png : 4 Mo max";
-  legendFormat.setAttribute("style", "font-family: Work Sans; font-size:10px;");
-  zoneAjoutPhoto.appendChild(legendFormat);
 
   //création label + input titre
   const titleTitlePhoto = document.createElement("label");
@@ -708,7 +723,11 @@ if (tokenRegistred) {
     alert("Projet enregistré");
 
     // réinitialisation du formulaire
-    buttonAjoutPhotoM2.value = "";
+    console.log(imagePreview);
+    imagePreview.src = "";
+    iconAjoutPhoto.style.display = null;
+    labelPhoto.style.display = "flex";
+    legendFormat.style.display = null;
     formModal2.reset();
   });
 
@@ -734,7 +753,7 @@ if (tokenRegistred) {
     const newProjectElementModal = document.createElement("figure");
     newProjectElementModal.setAttribute(
       "style",
-      "max-width: 100%; padding-bottom: 17.5px; display: flex; flex-direction: column"
+      "max-width: 100%; padding-bottom: 17.5px; display: flex; flex-direction: column; height: 140px;"
     );
     newProjectElementModal.id = nouveauProjet.id;
 
@@ -753,15 +772,15 @@ if (tokenRegistred) {
     newProjectElementModal.appendChild(newIconMove);
     newIconMove.setAttribute(
       "style",
-      "width: 17px; height:17px; position: relative; top: 42px; left: 35px; z-index:3; display: none;"
+      "width: 17px; height:17px; position: relative; top: 42px; left: 35px; z-index:3; opacity: 0;"
     );
-
-    newImageElementModal.addEventListener("click", () => {
-      newIconMove.style.display = null;
+    // eventlistener apparition au survol
+    newImageElementModal.addEventListener("mouseover", () => {
+      newIconMove.style.opacity = 1;
     });
-
-    newIconMove.addEventListener("click", () => {
-      newIconMove.style.display = "inline-block";
+    // eventlistener disparition lors de la sortie de la sourie du sruvol
+    newImageElementModal.addEventListener("mouseout", () => {
+      newIconMove.style.opacity = 0;
     });
 
     // icon suppression et add listener supression du projet
