@@ -1,3 +1,5 @@
+// --------------- Importations des données
+
 // Importation des données works depuis l'API et stockage dans la variable 'reponse', puis conversion au format JSON dans la variable 'projects'
 const reponse = await fetch("http://localhost:5678/api/works");
 const projects = await reponse.json();
@@ -7,11 +9,9 @@ const projects = await reponse.json();
 const reponse2 = await fetch("http://localhost:5678/api/categories");
 const categories = await reponse2.json();
 
-// import Fontion font awesome pour les icons
-// import { ajoutFontawesome } from "./scripts/main";
-// ajoutFontawesome();
+// -----------------------Header
 
-//sélection du header et des liens du login / logout du menu de navigation
+//Sélection du header et des liens du login / logout du menu de navigation
 
 const header = document.querySelector("header");
 
@@ -88,7 +88,7 @@ function generateProjects(projects) {
 
 generateProjects(projects);
 
-// -----------------------------------------------------------------------Boutons Filtres
+// --------------------------------------Boutons Filtres
 
 // Création du bouton "Tous" pour afficher tous les projets + ajout listener d'événement sur le bouton "Tous" pour afficher tous les projets
 
@@ -116,7 +116,7 @@ buttonFilterAll.addEventListener("click", function (e) {
 // Création d'un ensemble Set pour stocker les noms uniques des catégories
 const categorySet = new Set(categories.map((category) => category.name));
 
-// Parcours de chaque nom de catégorie dans l'ensemble Set
+// Parcours de chaque nom de catégorie dans l'ensemble Set et créations des buttons
 categorySet.forEach((categoryName) => {
   // création d'un bouton de filtre pour chaque catégorie
   const buttonFilter = document.createElement("button");
@@ -149,12 +149,11 @@ categorySet.forEach((categoryName) => {
 
 const tokenRegistred = window.localStorage.getItem("token");
 
-// Modification du format de la section 1
-
-// Boucle login / log out
+// -----------------------------------------------------------Boucle login / log out
 
 if (tokenRegistred) {
-  // barre noire dans le header + logo + texte mode edition + button publier les changements
+  // -----------Modifications du Header
+  //barre noire dans le header + logo + texte mode edition + button publier les changements
 
   const barreEditHeader = document.createElement("div");
   header.appendChild(barreEditHeader);
@@ -183,13 +182,13 @@ if (tokenRegistred) {
   );
   barreEditHeader.appendChild(buttonPublication);
 
-  //login devient logout
+  //login --> logout
 
   lienLogin.style.setProperty("display", "none");
 
   lienLogout.setAttribute("style", "text-decoration: none; display: null");
 
-  // Modifier la zone intro (logo + texte)
+  //  ------ Modifications zone intro (logo + texte)
 
   // Sélection d'une zone div ou on applique les propriétés souhaitées
   const changeIntro = document.querySelector(".change-intro");
@@ -214,12 +213,14 @@ if (tokenRegistred) {
   );
   changeIntro.appendChild(modifIntro);
 
-  // Modifier la zone 2 (logo + texte)
+  //----- Modifications de la zone 2 (logo + texte) et préparation pour l'intégration de la modale
 
+  //Logo modifications
   const iconGallery = document.createElement("img");
   iconGallery.src = " svg/Group.svg";
   portfolioTitleChange.appendChild(iconGallery);
 
+  // Création zone aside modale 1
   const modal1 = document.createElement("aside");
   modal1.classList.add("modal1");
   modal1.role = "dialog";
@@ -230,21 +231,28 @@ if (tokenRegistred) {
   modal1.style.display = "none";
   sectionGallery.appendChild(modal1);
 
+  // Création du bouton Modifier et de Event listener associé pour ouvrir la modale 1
   const modifGallery = document.createElement("button");
   modifGallery.innerText = "Modifier";
   modifGallery.setAttribute(
     "style",
     "padding: 0px; margin: 0px; display: flex; color: black; margin: 0px; font-family: Work Sans; border:none; background-color: white;"
   );
+
+  //Event Listener
   modifGallery.addEventListener("click", async function () {
     modal1.style.display = null;
   });
   portfolioTitleChange.appendChild(modifGallery);
 
-  //Supprimer les filtres
+  //Disparation des filtres en mode LogIn
 
   buttonFilterAll.style.setProperty("display", "none");
   buttonFilters.style.setProperty("display", "none");
+
+  // ----------------------------------- Modale 1
+
+  // création du zone wrapper pour contenir l'ensemble du corps de notre modale (dans le aside modal)
 
   const modalWrapper = document.createElement("div");
   modalWrapper.classList.add("modalWrapper");
@@ -252,9 +260,9 @@ if (tokenRegistred) {
     "style",
     "margin: auto; margin-top: 150px; display: flex; flex-direction: column; align-items: center; gap: 20px; color: black; padding: 0px; border:none; background-color: white; height: 731px; width: 630px;overflow: auto; border-radius: 10px;"
   );
-
   modal1.appendChild(modalWrapper);
 
+  //création de l'icone permettant de gérer la fermeture de la modale et eventlistener associé
   const iconFermetureModal1 = document.createElement("img");
   iconFermetureModal1.src = "svg/xmark.svg";
   iconFermetureModal1.setAttribute(
@@ -262,10 +270,13 @@ if (tokenRegistred) {
     "width: 24px; height:24 px; position: relative; left : 290px; padding: 25px 25px 0px 0px; margin: 0px;"
   );
   modalWrapper.appendChild(iconFermetureModal1);
+
+  //event listener fermeture modale
   iconFermetureModal1.addEventListener("click", async function () {
     modal1.style.display = "none";
   });
 
+  //titre modale 1
   const titleModal = document.createElement("h3");
   titleModal.innerText = "Galerie photo";
   titleModal.setAttribute(
@@ -274,6 +285,7 @@ if (tokenRegistred) {
   );
   modalWrapper.appendChild(titleModal);
 
+  // création d'une zone Gallery qui contiendra les projets chargés depuis l'API (à l'image de la gallery présente hors de la modale  )
   const galleryModal = document.createElement("div");
   galleryModal.setAttribute(
     "style",
@@ -281,25 +293,29 @@ if (tokenRegistred) {
   );
   modalWrapper.appendChild(galleryModal);
 
+  //Création de la fonction qui génère les projets dans la gallery de la modale
+
   function generateProjectsModal(projects) {
+    // parcours de tous les projets avec un indice i qui s'incremente à chaque projet parcouru
     for (let i = 0; i < projects.length; i++) {
       const project = projects[i];
 
+      // création d'une figure contenant le projet
       const projectElementModal = document.createElement("figure");
       projectElementModal.setAttribute(
         "style",
         "max-width: 100%; display: flex; flex-direction: column; position: sticky;"
       );
 
+      // création de l'image du projet (chargée depuis l'api)
       const imageElementModal = document.createElement("img");
       imageElementModal.src = project.imageUrl;
-      // imageElementModal.classList.add("img-modal1");
       imageElementModal.setAttribute(
         "style",
         "box-sizing: border-box; width : 78px; position: relative;"
       );
 
-      // icon move + add listener apparition/disparition
+      // création d'une icone move NON FONCTIONNELLE + add listener apparition/disparition
 
       const iconMove = document.createElement("img");
       iconMove.src = "svg/Move.svg";
@@ -309,16 +325,16 @@ if (tokenRegistred) {
         "style",
         "width: 17px; height:17px; position: relative; top: 42px; left: 35px; z-index:3; display: none;"
       );
-
+      // eventlistener apparition au survol
       imageElementModal.addEventListener("mouseover", () => {
         iconMove.style.display = null;
       });
-
+      // eventlistener disparition lors de la sortie de la sourie du sruvol
       imageElementModal.addEventListener("mouseout", () => {
         iconMove.style.display = "none";
       });
 
-      // icon suppression et add listener supression du projet
+      //création de l'icone suppression de projet et add listener supression du projet
 
       const iconSuppression = document.createElement("img");
       iconSuppression.src = "svg/suppr.svg";
@@ -328,26 +344,37 @@ if (tokenRegistred) {
         "width: 17px; height:17px; position: relative; top:25px; left: 55px; z-index:2;"
       );
 
+      //event listener disparion
       iconSuppression.addEventListener("click", async function (e) {
+        //appel à l'api donc prévention des erreurs
         e.preventDefault();
         e.stopPropagation();
 
+        // sélection du projet par son id et stcokage de l'id dans une constante
         const idElementModal = project.id;
         console.log(idElementModal);
 
+        //récupération du token à nouveau
         const token = localStorage.getItem("token");
 
+        // ----------------------------suppression de projet
+
+        //création d'une const du projet à supprimer dans la modale
         const elementASupprimer = projectElementModal;
         console.log(elementASupprimer);
 
+        //sélection du projet de la gallery à spprimer par son id et stockage dans une constante
         const projectElement = document.getElementById(project.id);
 
+        //création d'une const du projet à supprimer dans la gallery principale
         const elementASupprimerGallery = projectElement;
         console.log(elementASupprimerGallery);
 
+        // suppression du DOM (modale + principale)
         elementASupprimerGallery.remove();
         elementASupprimer.remove();
 
+        // requete suppression du projet dans API
         const responseDelete = await fetch(
           `http://localhost:5678/api/works/${idElementModal}`,
           {
@@ -359,14 +386,17 @@ if (tokenRegistred) {
           }
         );
       });
-      // debugger;
+      // fin suppression --------------------------------------------------------------------------------
 
+      //création zone figcaption
       const figureCaptionElement = document.createElement("figurecaption");
       figureCaptionElement.innerText = "";
 
+      // création du lien permettant l'édition de chaque projet NON FONCTIONNEL
       const lienEdit = document.createElement("a");
       lienEdit.innerText = "Editer";
 
+      // rattachement au DOM des différents éléments
       galleryModal.appendChild(projectElementModal);
       projectElementModal.appendChild(imageElementModal);
       projectElementModal.appendChild(figureCaptionElement);
@@ -374,8 +404,10 @@ if (tokenRegistred) {
     }
   }
 
+  // appel de la fonction
   generateProjectsModal(projects);
 
+  // button d'accès à la modale 2 permettant l'ajout d'un projet + event listener
   const buttonAjoutPhoto = document.createElement("button");
   buttonAjoutPhoto.innerText = "Ajouter une photo";
   buttonAjoutPhoto.setAttribute(
@@ -384,11 +416,13 @@ if (tokenRegistred) {
   );
   modalWrapper.appendChild(buttonAjoutPhoto);
 
+  // event listener ouverture modale 2 (et fermeture modale 1)
   buttonAjoutPhoto.addEventListener("click", async function () {
     modal1.style.display = "none";
     modal2.style.display = null;
   });
 
+  // création du lien permettant de supprimer l'entièreté de la gallery NON FONCTIONNEL
   const lienSuppression = document.createElement("a");
   lienSuppression.innerText = "Supprimer la galerie";
   lienSuppression.setAttribute(
@@ -397,7 +431,9 @@ if (tokenRegistred) {
   );
   modalWrapper.appendChild(lienSuppression);
 
-  //----------------------------------------------------modal2
+  //-------------------------------------------------------------------------------------Modale 2
+
+  //création de l'élément Aside qui contient la modale 2
 
   const modal2 = document.createElement("aside");
   modal2.classList.add("modal2");
@@ -407,8 +443,9 @@ if (tokenRegistred) {
     " position: fixed; top: 0px; left: 0px; height: 100%; width: 100%; background: rgba(0, 0, 0, 0.3); display: flex; justify-content: space-around; align-items: center;"
   );
   modal2.style.display = "none";
-
   sectionGallery.appendChild(modal2);
+
+  //création du zone wrapper pour contenir l'ensemble du corps de notre modale (dans le aside modal)
 
   const modalWrapper2 = document.createElement("div");
   modalWrapper2.classList.add("modalWrapper");
@@ -418,6 +455,7 @@ if (tokenRegistred) {
   );
   modal2.appendChild(modalWrapper2);
 
+  //création de la zone contenant les icones de retour en arrière et de fermeture de modale 2
   const zoneIconFermetureModale2 = document.createElement("div");
   zoneIconFermetureModale2.setAttribute(
     "style",
@@ -425,27 +463,30 @@ if (tokenRegistred) {
   );
   modalWrapper2.appendChild(zoneIconFermetureModale2);
 
+  //Icone de retour à la modale 1 et event listener associé
   const iconReturnModal2 = document.createElement("img");
   iconReturnModal2.src = "svg/arrow.svg";
   iconReturnModal2.setAttribute("style", "width: 21px; height:21px;");
-
   zoneIconFermetureModale2.appendChild(iconReturnModal2);
 
+  // event listener retour modale 1
   iconReturnModal2.addEventListener("click", async function () {
     modal1.style.display = null;
     modal2.style.display = "none";
   });
 
+  //création de l'icone permettant de gérer la fermeture de la modale et eventlistener associé
   const iconFermetureModal2 = document.createElement("img");
   iconFermetureModal2.src = "svg/xmark.svg";
   iconFermetureModal2.setAttribute("style", "width: 24px; height:24px;");
-
   zoneIconFermetureModale2.appendChild(iconFermetureModal2);
 
+  //event listener fermeture modale 2
   iconFermetureModal2.addEventListener("click", async function () {
     modal2.style.display = "none";
   });
 
+  // création titre modale 2
   const titleModal2 = document.createElement("h3");
   titleModal2.innerText = "Ajout photo";
   titleModal2.setAttribute(
@@ -454,6 +495,7 @@ if (tokenRegistred) {
   );
   modalWrapper2.appendChild(titleModal2);
 
+  //---------------------------création d'un formulaire pour que l'utilisateur puisse rentrer les datas de son nouveau projet
   const formModal2 = document.createElement("form");
   // formModal2.setAttribute("method", "post");
   // formModal2.setAttribute("action", "submit.php");
@@ -465,12 +507,16 @@ if (tokenRegistred) {
   );
   modalWrapper2.appendChild(formModal2);
 
+  // création d'un fielset pour regrouper les zones input datas
+
   const fieldsetModal2 = document.createElement("fieldset");
   fieldsetModal2.setAttribute(
     "style",
     "display: flex; flex-direction: column; justify:content:flex-start; align-items: flex-start; gap: 20px; color: black; padding: 0px 20px 20px 0px; border:none; background-color: white;"
   );
   formModal2.appendChild(fieldsetModal2);
+
+  // création zone qui permet de visualiser l'image chargée
 
   const zoneAjoutPhoto = document.createElement("div");
   zoneAjoutPhoto.setAttribute(
@@ -479,15 +525,19 @@ if (tokenRegistred) {
   );
   fieldsetModal2.appendChild(zoneAjoutPhoto);
 
+  // ajout d'une icone img
   const iconAjoutPhoto = document.createElement("img");
   iconAjoutPhoto.src = "svg/picture.svg";
   iconAjoutPhoto.setAttribute("style", "width: 58px; height:58px;");
   zoneAjoutPhoto.appendChild(iconAjoutPhoto);
 
+  // stockage d'une image vierge dans une constante pour permettre une prévisualisation de l'image que l'utilisateur aura loadé
+
   const imagePreview = document.createElement("img");
   imagePreview.src = "";
   zoneAjoutPhoto.appendChild(imagePreview);
 
+  // création d'un label (=titre) pour l'input file image
   const labelPhoto = document.createElement("label");
   labelPhoto.setAttribute("for", "img");
   labelPhoto.setAttribute(
@@ -496,6 +546,8 @@ if (tokenRegistred) {
   );
   labelPhoto.innerText = "+ Ajouter photo";
   zoneAjoutPhoto.appendChild(labelPhoto);
+
+  //création input file
 
   const buttonAjoutPhotoM2 = document.createElement("input");
   buttonAjoutPhotoM2.setAttribute("type", "file");
@@ -507,26 +559,37 @@ if (tokenRegistred) {
 
   // fonctionnalité de preview de l'image
 
+  //event listener lorsque la valeur de l"input change (c'ets à dire si un fichier est chargé)
+
   buttonAjoutPhotoM2.addEventListener("change", function (e) {
+    //gestion des erreurs
     e.preventDefault();
     e.stopPropagation();
-    const file = event.target.files[0];
+    const file = e.target.files[0];
+
+    // condition if n: si un fichier est chargé alors preview
     if (file) {
+      // creation d'une nouvelle instance pour l'objet filerider
       const reader = new FileReader();
 
+      // event listener lorsque que le fichié est completement téléchargé
       reader.addEventListener("load", function () {
-        // Mise à jour de la source de l'image avec les données de l'image chargée
+        // mise à jour de la source de l'image avec les données de l'image chargée
         imagePreview.src = reader.result;
       });
+      //lecture du fichier en tant que dataURL
       reader.readAsDataURL(file);
     }
   });
+  //------- fin de la fonctionnalité de preview
 
+  // création d'un paragraphe qui spécifie les types de fichiers acceptés
   const legendFormat = document.createElement("p");
   legendFormat.innerText = "jpg.png : 4 Mo max";
   legendFormat.setAttribute("style", "font-family: Work Sans; font-size:10px;");
   zoneAjoutPhoto.appendChild(legendFormat);
 
+  //création label + input titre
   const titleTitlePhoto = document.createElement("label");
   titleTitlePhoto.setAttribute("for", "titre");
   titleTitlePhoto.innerText = "Titre";
@@ -539,6 +602,7 @@ if (tokenRegistred) {
   titlePhotoModal2.setAttribute("id", "titre");
   fieldsetModal2.appendChild(titlePhotoModal2);
 
+  //création label + champ select pour choisir une catagéorie (et création des catégories)
   const titleCategoryPhoto = document.createElement("label");
   titleCategoryPhoto.setAttribute("for", "categorie");
   titleCategoryPhoto.innerText = "Catégorie";
@@ -570,6 +634,8 @@ if (tokenRegistred) {
   categoryHotelsPhotoModal2.innerText = "Hôtels et restaurants";
   categoryPhotoModal2.appendChild(categoryHotelsPhotoModal2);
 
+  // --------------------------------- Bouton de soumission du formulaire en envoyant une requete à l'API
+
   const buttonValidationModal2 = document.createElement("button");
   buttonValidationModal2.innerText = "Valider";
   buttonValidationModal2.setAttribute(
@@ -578,17 +644,22 @@ if (tokenRegistred) {
   );
   modalWrapper2.appendChild(buttonValidationModal2);
 
-  // fonction ajout d'un nouveau projet
+  // Fonction ajout d'un nouveau projet
 
   buttonValidationModal2.addEventListener("click", async function (e) {
+    //gestion des erreurs
     e.preventDefault();
     e.stopPropagation();
+
+    // stokage des data rentrées par l'utilisateur dans trois contantes (image, title, categorie)
     const image = buttonAjoutPhotoM2.files[0];
     const title = titlePhotoModal2.value;
     const category = categoryPhotoModal2.value;
 
+    // création et initialisation d'une variable catId
     let catId = null;
 
+    // associations noms des catagories dans select à id de la catégorie correspondant et stockage dans la viraible catId
     if (category === "Objets") {
       catId = 1;
     } else if (category === "Appartements") {
@@ -597,22 +668,28 @@ if (tokenRegistred) {
       catId = 3;
     }
 
+    // gestion des champs du formulaires (ils doivent tous être compléter avant soumission du formulaire) grâce à uen condition IF, sinon alerte
     if (!image || !title || !category) {
       alert("Merci de compléter tous les champs");
       return;
     }
 
+    // gestion du changement de couleur du bouton de validation
     buttonValidationModal2.setAttribute(
       "style",
       "font-family: Syne; font-weight: 700; font-size:14px; width: 237px; height: 36px; text-align:center; background-color: #1D6154;  color: white; border-radius:60px; border:none;"
     );
 
+    //création d'un objet formData avec les données de utlisateurs stockées dans les constantes image, title et catId
     const formData = new FormData();
     formData.append("image", image);
     formData.append("title", title);
     formData.append("category", catId);
 
+    //récupération du tocken
     const token = localStorage.getItem("token");
+
+    //requête de l'envoi du projet et stcokage de la réponse dans une constante
     const responseEnvoi = await fetch("http://localhost:5678/api/works", {
       method: "POST",
       headers: {
@@ -621,6 +698,7 @@ if (tokenRegistred) {
       },
       body: formData,
     });
+    // trasnformation de la reponse en JSON
     const responseEnvoiJ = await responseEnvoi.json();
     console.log(responseEnvoiJ);
 
@@ -628,12 +706,13 @@ if (tokenRegistred) {
     ajouterNouveauProjet(responseEnvoiJ);
 
     alert("Projet enregistré");
+
+    // réinitialisation du formulaire
     buttonAjoutPhotoM2.value = "";
     formModal2.reset();
-
-    // faire une boucle if et si buttonAjoutphoto M2 prendune certaine valeur "" alors pas de preview ?
   });
 
+  // fonction d'ajout de nouveau projet au dom (modale et gallery principale) (fonction similaire commentée précédemment )
   function ajouterNouveauProjet(nouveauProjet) {
     const newProjectElement = document.createElement("figure");
     newProjectElement.id = nouveauProjet.id;
@@ -739,5 +818,5 @@ if (tokenRegistred) {
     newFigureCaptionElement.appendChild(newLienEdit);
   }
 } else {
-  // le site se comporte normalement
+  // le site se comporte normalement cad en mode NON login (mode logout)
 }
