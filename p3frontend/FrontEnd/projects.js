@@ -106,7 +106,6 @@ buttonFilterAll.addEventListener("click", function (e) {
   const piecesFiltres = projects.filter(function (project) {
     return project;
   });
-  console.log(piecesFiltres);
   document.querySelector(".gallery").innerHTML = "";
   generateProjects(piecesFiltres);
 });
@@ -139,7 +138,6 @@ categorySet.forEach((categoryName) => {
         categories.find((category) => category.name === categoryName).id
       );
     });
-    console.log(piecesFiltres);
     sectionGallery.innerHTML = "";
     generateProjects(piecesFiltres);
   });
@@ -351,7 +349,6 @@ if (tokenRegistred) {
 
         // sélection du projet par son id et stcokage de l'id dans une constante
         const idElementModal = project.id;
-        console.log(idElementModal);
 
         //récupération du token à nouveau
         const token = localStorage.getItem("token");
@@ -360,26 +357,29 @@ if (tokenRegistred) {
 
         //création d'une const du projet à supprimer dans la modale
         const elementASupprimer = projectElementModal;
-        console.log(elementASupprimer);
 
         //sélection du projet de la gallery à spprimer par son id et stockage dans une constante
         const projectElement = document.getElementById(project.id);
 
         //création d'une const du projet à supprimer dans la gallery principale
         const elementASupprimerGallery = projectElement;
-        console.log(elementASupprimerGallery);
 
         // requete suppression du projet dans API
-        const responseDelete = await fetch(
-          `http://localhost:5678/api/works/${idElementModal}`,
-          {
-            method: "DELETE",
-            headers: {
-              accept: "*/*",
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
+        try {
+          const responseDelete = await fetch(
+            `http://localhost:5678/api/works/${idElementModal}`,
+            {
+              method: "DELETE",
+              headers: {
+                accept: "*/*",
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
+        } catch {
+          console.log(responseDelete);
+          alert("Erreur : le projet n'est pas correctement supprimé");
+        }
 
         // suppression du DOM (modale + principale)
         elementASupprimerGallery.remove();
@@ -715,15 +715,18 @@ if (tokenRegistred) {
     });
     // trasnformation de la reponse en JSON
     const responseEnvoiJ = await responseEnvoi.json();
-    console.log(responseEnvoiJ);
 
     // Appel de la fonction pour ajouter le nouveau projet aux galeries
-    ajouterNouveauProjet(responseEnvoiJ);
 
-    alert("Projet enregistré");
+    try {
+      ajouterNouveauProjet(responseEnvoiJ);
+    } catch {
+      alert("Erreur : Attention le nouveau projet n'est pas enregistré");
+    } finally {
+      if (responseEnvoi.status === 201) alert("Projet enregistré");
+    }
 
     // réinitialisation du formulaire
-    console.log(imagePreview);
     imagePreview.src = "";
     iconAjoutPhoto.style.display = null;
     labelPhoto.style.display = "flex";
@@ -805,16 +808,21 @@ if (tokenRegistred) {
 
       const newElementASupprimerGallery = newProjectElement;
 
-      const responseDelete = await fetch(
-        `http://localhost:5678/api/works/${newIdElementModal}`,
-        {
-          method: "DELETE",
-          headers: {
-            accept: "*/*",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      try {
+        const responseDelete = await fetch(
+          `http://localhost:5678/api/works/${newIdElementModal}`,
+          {
+            method: "DELETE",
+            headers: {
+              accept: "*/*",
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+      } catch {
+        console.log(responseDelete);
+        alert("Erreur : le projet n'est pas correctement supprimé");
+      }
 
       newElementASupprimerGallery.remove();
       newElementASupprimer.remove();

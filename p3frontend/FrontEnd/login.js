@@ -59,7 +59,6 @@ buttonConnexion.addEventListener("click", async function () {
     email: email.value,
     password: password.value,
   };
-  console.log(jeuMdpPassword);
 
   //stockage de la réponse de la requete dans une constante
   const responsemdp = await fetch("http://localhost:5678/api/users/login", {
@@ -72,7 +71,6 @@ buttonConnexion.addEventListener("click", async function () {
 
   //traduction de la réponse en json
   const responseBody = await responsemdp.json();
-  console.log(responseBody);
 
   // condition IF pour succès ou echec de la connexion
 
