@@ -369,10 +369,6 @@ if (tokenRegistred) {
         const elementASupprimerGallery = projectElement;
         console.log(elementASupprimerGallery);
 
-        // suppression du DOM (modale + principale)
-        elementASupprimerGallery.remove();
-        elementASupprimer.remove();
-
         // requete suppression du projet dans API
         const responseDelete = await fetch(
           `http://localhost:5678/api/works/${idElementModal}`,
@@ -384,6 +380,10 @@ if (tokenRegistred) {
             },
           }
         );
+
+        // suppression du DOM (modale + principale)
+        elementASupprimerGallery.remove();
+        elementASupprimer.remove();
       });
       // fin suppression --------------------------------------------------------------------------------
 
@@ -799,12 +799,11 @@ if (tokenRegistred) {
 
       const token = localStorage.getItem("token");
 
+      const newIdElementModal = nouveauProjet.id;
+
       const newElementASupprimer = newProjectElementModal;
 
       const newElementASupprimerGallery = newProjectElement;
-
-      newElementASupprimerGallery.remove();
-      newElementASupprimer.remove();
 
       const responseDelete = await fetch(
         `http://localhost:5678/api/works/${newIdElementModal}`,
@@ -816,6 +815,9 @@ if (tokenRegistred) {
           },
         }
       );
+
+      newElementASupprimerGallery.remove();
+      newElementASupprimer.remove();
     });
 
     const newTitleElementModal = document.createElement("p");
