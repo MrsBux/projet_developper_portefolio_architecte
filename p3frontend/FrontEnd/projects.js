@@ -3,6 +3,7 @@
 // Importation des données works depuis l'API et stockage dans la variable 'reponse', puis conversion au format JSON dans la variable 'projects'
 const reponse = await fetch("http://localhost:5678/api/works");
 const projects = await reponse.json();
+console.log(projects);
 
 // Importation des données category depuis l'API et stockage dans la variable 'reponse2', puis conversion au format JSON dans la variable 'categories'
 
@@ -20,6 +21,8 @@ lienLogin.setAttribute("style", "text-decoration: none; padding: 0;");
 
 const lienLogout = document.querySelector(".lien_logout");
 lienLogout.style.setProperty("display", "none");
+
+// ------------------------------------------------Galerie
 
 // Sélection de l'élément HTML avec la classe "portfolio" et stockage dans la variable 'sectionPortfolio'
 
@@ -666,7 +669,7 @@ if (tokenRegistred) {
     e.preventDefault();
     e.stopPropagation();
 
-    // stokage des data rentrées par l'utilisateur dans trois contantes (image, title, categorie)
+    // stokage des data rentrées par l'utilisateur dans trois contantes (image, title, category)
     const image = buttonAjoutPhotoM2.files[0];
     const title = titlePhotoModal2.value;
     const category = categoryPhotoModal2.value;

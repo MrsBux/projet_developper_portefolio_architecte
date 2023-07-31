@@ -34,6 +34,7 @@ labelMdp.innerText = "Mot de passe";
 organisationForm.appendChild(labelMdp);
 
 const password = document.createElement("input");
+password.type = "password";
 password.innerText = "Mot de passe";
 organisationForm.appendChild(password);
 
