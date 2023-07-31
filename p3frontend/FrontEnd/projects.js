@@ -21,6 +21,9 @@ lienLogin.setAttribute("style", "text-decoration: none; padding: 0;");
 
 const lienLogout = document.querySelector(".lien_logout");
 lienLogout.style.setProperty("display", "none");
+lienLogout.addEventListener("click", function (e) {
+  window.localStorage.removeItem("token");
+});
 
 // ------------------------------------------------Galerie
 
@@ -239,10 +242,11 @@ if (tokenRegistred) {
     "style",
     "padding: 0px; margin: 0px; display: flex; color: black; margin: 0px; font-family: Work Sans; border:none; background-color: white;"
   );
-
+  let isModal2Visible = null;
   //Event Listener
   modifGallery.addEventListener("click", async function () {
     modal1.style.display = null;
+    isModal2Visible = false;
   });
   portfolioTitleChange.appendChild(modifGallery);
 
@@ -422,6 +426,7 @@ if (tokenRegistred) {
   buttonAjoutPhoto.addEventListener("click", async function () {
     modal1.style.display = "none";
     modal2.style.display = null;
+    isModal2Visible = true;
   });
 
   // création du lien permettant de supprimer l'entièreté de la gallery NON FONCTIONNEL
@@ -465,6 +470,19 @@ if (tokenRegistred) {
   );
   modalWrapper2.appendChild(zoneIconFermetureModale2);
 
+  // Écouteur d'événement pour les clics sur le document
+  document.addEventListener("click", (event) => {
+    // Vérifier si le clic est en dehors de la modalWrapper (modal1) et de la modal2
+    if (
+      !modalWrapper.contains(event.target) &&
+      event.target !== modifGallery &&
+      isModal2Visible !== true
+    ) {
+      // Clic en dehors de la modalWrapper (modal1) et de la modal2, on les masque (ferme)
+      modal1.style.display = "none";
+    }
+  });
+
   //Icone de retour à la modale 1 et event listener associé
   const iconReturnModal2 = document.createElement("img");
   iconReturnModal2.src = "svg/arrow.svg";
@@ -473,8 +491,9 @@ if (tokenRegistred) {
 
   // event listener retour modale 1
   iconReturnModal2.addEventListener("click", async function () {
-    modal1.style.display = null;
+    // Si la modal2 est visible, la masquer et afficher la modal1
     modal2.style.display = "none";
+    modal1.style.display = null;
   });
 
   //création de l'icone permettant de gérer la fermeture de la modale et eventlistener associé
@@ -486,6 +505,7 @@ if (tokenRegistred) {
   //event listener fermeture modale 2
   iconFermetureModal2.addEventListener("click", async function () {
     modal2.style.display = "none";
+    isModal2Visible = false;
   });
 
   // création titre modale 2

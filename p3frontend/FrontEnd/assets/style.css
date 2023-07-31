@@ -177,6 +177,7 @@ h2 {
 
 a {
   color: black;
+  text-decoration: none;
 }
 
 a:hover {
@@ -195,7 +196,8 @@ button:hover {
 /**********************************************Header détails ***************************************************/
 
 .lien_login:hover,
-.lien_logout:hover {
+.lien_logout:hover,
+.lien_accueil:hover {
   color: #b1663c;
 }
 
