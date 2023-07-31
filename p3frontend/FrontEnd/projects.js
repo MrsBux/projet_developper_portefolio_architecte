@@ -3,7 +3,6 @@
 // Importation des données works depuis l'API et stockage dans la variable 'reponse', puis conversion au format JSON dans la variable 'projects'
 const reponse = await fetch("http://localhost:5678/api/works");
 const projects = await reponse.json();
-console.log(projects);
 
 // Importation des données category depuis l'API et stockage dans la variable 'reponse2', puis conversion au format JSON dans la variable 'categories'
 
