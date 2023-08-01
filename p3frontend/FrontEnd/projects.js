@@ -469,15 +469,15 @@ if (tokenRegistred) {
   );
   modalWrapper2.appendChild(zoneIconFermetureModale2);
 
-  // Écouteur d'événement pour les clics sur le document
+  // event listener pour clic hors modale/fermeture
   document.addEventListener("click", (event) => {
-    // Vérifier si le clic est en dehors de la modalWrapper (modal1) et de la modal2
+    // condition if :  si le clic est en dehors de la modalWrapper modal 1, hors bouton d'ouverture de la modale 1 et si la modale 2 n'est pas visible
     if (
       !modalWrapper.contains(event.target) &&
       event.target !== modifGallery &&
       isModal2Visible !== true
     ) {
-      // Clic en dehors de la modalWrapper (modal1) et de la modal2, on les masque (ferme)
+      // instructions post if pour fermer la modale 1
       modal1.style.display = "none";
     }
   });
@@ -493,6 +493,12 @@ if (tokenRegistred) {
     // Si la modal2 est visible, la masquer et afficher la modal1
     modal2.style.display = "none";
     modal1.style.display = null;
+    // réinitialisation du formulaire
+    imagePreview.src = "";
+    iconAjoutPhoto.style.display = null;
+    labelPhoto.style.display = "flex";
+    legendFormat.style.display = null;
+    formModal2.reset();
   });
 
   //création de l'icone permettant de gérer la fermeture de la modale et eventlistener associé
@@ -505,8 +511,25 @@ if (tokenRegistred) {
   iconFermetureModal2.addEventListener("click", async function () {
     modal2.style.display = "none";
     isModal2Visible = false;
+    // réinitialisation du formulaire
+    imagePreview.src = "";
+    iconAjoutPhoto.style.display = null;
+    labelPhoto.style.display = "flex";
+    legendFormat.style.display = null;
+    formModal2.reset();
   });
 
+  // event listener pour clic hors modale/fermeture
+  document.addEventListener("click", (event) => {
+    // condition if :  si le clic est en dehors de la modalWrapper modal 2 et aussi hors bouton d'ouverture de la modale 2
+    if (
+      !modalWrapper2.contains(event.target) &&
+      event.target !== buttonAjoutPhoto
+    ) {
+      // instructions post if pour fermer la modale 2
+      modal2.style.display = "none";
+    }
+  });
   // création titre modale 2
   const titleModal2 = document.createElement("h3");
   titleModal2.innerText = "Ajout photo";
@@ -703,6 +726,25 @@ if (tokenRegistred) {
       catId = 2;
     } else if (category === "Hôtels et restaurants") {
       catId = 3;
+    }
+
+    // création d'une variable pour stocker l'extension du fichier
+    let fileExtension = "";
+
+    // Vérification si un fichier est chargé
+    if (image) {
+      // Récupération de l'extension du fichier
+      fileExtension = image.name.split(".").pop().toLowerCase();
+    }
+
+    // Vérification de l'extension du fichier (doit être jpg ou png)
+    if (!image || !["jpg", "png"].includes(fileExtension)) {
+      alert("Merci de télécharger une image au format JPG ou PNG.");
+      imagePreview.src = "";
+      iconAjoutPhoto.style.display = null;
+      labelPhoto.style.display = "flex";
+      legendFormat.style.display = null;
+      return;
     }
 
     // gestion des champs du formulaires (ils doivent tous être compléter avant soumission du formulaire) grâce à uen condition IF, sinon alerte
