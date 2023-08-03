@@ -690,11 +690,11 @@ if (tokenRegistred) {
   categoryPhotoModal2.appendChild(categoryAppartPhotoModal2);
 
   const categoryHotelsPhotoModal2 = document.createElement("option");
-  categoryHotelsPhotoModal2.value = "Hôtels et restaurants";
-  categoryHotelsPhotoModal2.innerText = "Hôtels et restaurants";
+  categoryHotelsPhotoModal2.value = "Hotels & restaurants";
+  categoryHotelsPhotoModal2.innerText = "Hotels & restaurants";
   categoryPhotoModal2.appendChild(categoryHotelsPhotoModal2);
 
-  // --------------------------------- Bouton de soumission du formulaire en envoyant une requete à l'API
+  // --------------------------------- Bouton de soumission du formulaire en envoyant une requete à l'API fjt
 
   const buttonValidationModal2 = document.createElement("button");
   buttonValidationModal2.innerText = "Valider";
@@ -716,16 +716,24 @@ if (tokenRegistred) {
     const title = titlePhotoModal2.value;
     const category = categoryPhotoModal2.value;
 
-    // création et initialisation d'une variable catId
-    let catId = null;
+    // correction post soutenance ------------------------------------------------------------------
 
-    // associations noms des catagories dans select à id de la catégorie correspondant et stockage dans la viraible catId
-    if (category === "Objets") {
-      catId = 1;
-    } else if (category === "Appartements") {
-      catId = 2;
-    } else if (category === "Hôtels et restaurants") {
-      catId = 3;
+    // création d'un objet avec la fonction map des noms de catégories aux id de catégories
+    const categoryAssociations = {};
+    categories.forEach((category) => {
+      categoryAssociations[category.name] = category.id;
+    });
+    //console.log(categoryAssociations);
+
+    // récupération de l'ID de la catégorie en utilisant l'objet categoryAssociations
+    const catId = categoryAssociations[category];
+    //console.log(catId);
+    // -------------------------------------------------------------------------------------------correction post soutenance
+
+    // gestion des champs du formulaires (ils doivent tous être compléter avant soumission du formulaire) grâce à uen condition IF, sinon alerte
+    if (!image || !title || !category) {
+      alert("Merci de compléter tous les champs");
+      return;
     }
 
     // création d'une variable pour stocker l'extension du fichier
@@ -744,12 +752,6 @@ if (tokenRegistred) {
       iconAjoutPhoto.style.display = null;
       labelPhoto.style.display = "flex";
       legendFormat.style.display = null;
-      return;
-    }
-
-    // gestion des champs du formulaires (ils doivent tous être compléter avant soumission du formulaire) grâce à uen condition IF, sinon alerte
-    if (!image || !title || !category) {
-      alert("Merci de compléter tous les champs");
       return;
     }
 
