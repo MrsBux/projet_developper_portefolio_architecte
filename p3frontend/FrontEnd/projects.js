@@ -716,16 +716,17 @@ if (tokenRegistred) {
     const title = titlePhotoModal2.value;
     const category = categoryPhotoModal2.value;
 
-    // correction post soutenance ------------------------------------------------------------------
+    // correction post soutenance 03/08 ------------------------------------------------------------------
 
-    // création d'un objet avec la fonction map des noms de catégories aux id de catégories
+    // création d'un objet categoryAssociations pour associer noms de catégories aux id de catégories
     const categoryAssociations = {};
+    // utilisation de for each et fonction lambda
     categories.forEach((category) => {
       categoryAssociations[category.name] = category.id;
     });
     //console.log(categoryAssociations);
 
-    // récupération de l'ID de la catégorie en utilisant l'objet categoryAssociations
+    // récupération de l'ID de la catégorie en utilisant l'objet categoryAssociations et création de la catégorie catId
     const catId = categoryAssociations[category];
     //console.log(catId);
     // -------------------------------------------------------------------------------------------correction post soutenance
