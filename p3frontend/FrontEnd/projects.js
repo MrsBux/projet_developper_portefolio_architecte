@@ -674,25 +674,23 @@ if (tokenRegistred) {
   categoryPhotoModal2.setAttribute("id", "categorie");
   fieldsetModal2.appendChild(categoryPhotoModal2);
 
+  //------------------------------------------------ modif post soutenance
+
+  // création du type option vierge
   const category0ptionPhotoModal2 = document.createElement("option");
   category0ptionPhotoModal2.value = "";
   category0ptionPhotoModal2.innerText = "";
   categoryPhotoModal2.appendChild(category0ptionPhotoModal2);
 
-  const categoryObjetsPhotoModal2 = document.createElement("option");
-  categoryObjetsPhotoModal2.value = "Objets";
-  categoryObjetsPhotoModal2.innerText = "Objets";
-  categoryPhotoModal2.appendChild(categoryObjetsPhotoModal2);
+  // parcours des catégories et créations des options dynamiquement
+  categories.forEach((category) => {
+    const option = document.createElement("option");
+    option.value = category.name;
+    option.innerText = category.name;
+    categoryPhotoModal2.appendChild(option);
+  });
 
-  const categoryAppartPhotoModal2 = document.createElement("option");
-  categoryAppartPhotoModal2.value = "Appartements";
-  categoryAppartPhotoModal2.innerText = "Appartements";
-  categoryPhotoModal2.appendChild(categoryAppartPhotoModal2);
-
-  const categoryHotelsPhotoModal2 = document.createElement("option");
-  categoryHotelsPhotoModal2.value = "Hotels & restaurants";
-  categoryHotelsPhotoModal2.innerText = "Hotels & restaurants";
-  categoryPhotoModal2.appendChild(categoryHotelsPhotoModal2);
+  //---------------------------------------------
 
   // --------------------------------- Bouton de soumission du formulaire en envoyant une requete à l'API fjt
 
